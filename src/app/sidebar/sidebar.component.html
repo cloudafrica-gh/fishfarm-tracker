@@ -1,0 +1,264 @@
+<div class="sidebar" id="sidebar" *ngIf="url != 'pages' && url != 'career'">
+  <div class="sidebar-inner slimscroll-wrap" slimScroll [options]="opts">
+    <div id="sidebar-menu" class="sidebar-menu">
+      <ul *ngIf="homeView">
+        <li [ngClass]="[url === 'dashboard'? 'active' : 'inactive',url === ''? 'active' : 'inactive']">
+          <a routerLink="dashboard"><i class="la la-dashboard"></i> <span> Dashboard </span></a>
+        </li>
+        <li class="submenu">
+          <a class="noti-dot" [ngClass]="url === 'employees'? 'subdrop' : 'null'">
+            <i class="la la-user"></i>
+            <span> Administrator</span>
+            <span class="menu-arrow"></span>
+          </a>
+          <ul class="list-unstyled" [ngClass]="url === 'employees'? 'submenu-block' : 'dsply-none'">
+            <li>
+              <a routerLink="employees/all-employees" [ngClass]="url2 === 'all-employees'? 'active' : 'null'">
+                All users
+              </a>
+            </li>
+            <li>
+              <a routerLink="employees/leaves" [ngClass]="url2 === 'leaves'? 'active' : 'null'">
+                <span>All user ponds</span>
+                <span class="badge bg-primary pull-right">1</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+<!--        <li [ngClass]="url === 'clients'? 'active' : 'null'">-->
+<!--          <a routerLink="clients"><i class="la la-users"></i> <span> Clients </span></a>-->
+<!--        </li>-->
+
+        <li [ngClass]="url === 'users'? 'active' : 'null'">
+          <a routerLink="users"><i class="la la-user-plus"></i> <span> My ponds </span></a>
+        </li>
+
+        <li>
+          <a routerLink="settings/company-settings"><i class="la la-cog"></i> <span> Settings </span></a>
+        </li>
+<!--        <li class="submenu">-->
+<!--          <a href="javascript:" [ngClass]="url === 'pages'? 'subdrop' : 'null'"><i class="la la-columns"></i> <span> Pages </span>-->
+<!--            <span class="menu-arrow"></span></a>-->
+<!--          <ul class="list-unstyled" [ngClass]="url === 'pages'? 'submenu-block' : 'dsply-none'">-->
+<!--            <li><a routerLink="pages/login" [ngClass]="url2 === 'login' ? 'active' : 'null'"> Login </a></li>-->
+<!--            <li><a routerLink="pages/register" [ngClass]="url2 === 'register' ? 'active' : 'null'"> Register </a></li>-->
+<!--            <li><a routerLink="pages/forgot-password" [ngClass]="url2 === 'forgot-password' ? 'active' : 'null'"> Forgot-->
+<!--              Password </a></li>-->
+<!--            <li><a routerLink="profile" [ngClass]="url2 === 'profile' ? 'active' : 'null'"> Profile </a></li>-->
+<!--          </ul>-->
+<!--        </li>-->
+      </ul>
+
+      <ul *ngIf='settingsView' class="sidebar-menu">
+        <li>
+          <a routerLink="dashboard"><i class="la la-home"></i> <span>Back to Home</span></a>
+        </li>
+        <li class="menu-title">Settings</li>
+        <li [ngClass]="url2 === 'company-settings' ? 'active' : 'null'"><a routerLink="settings/company-settings">
+          Company Settings </a></li>
+        <li [ngClass]="url2 === 'localization' ? 'active' : 'null'"><a routerLink="settings/localization">
+          Localization </a></li>
+        <li [ngClass]="url2 === 'theme-settings' ? 'active' : 'null'"><a routerLink="settings/theme-settings"> Theme
+          Settings </a></li>
+        <li [ngClass]="url2 === 'roles-permissions' ? 'active' : 'null'"><a routerLink="settings/roles-permissions">
+          Roles and Permissions </a></li>
+        <li [ngClass]="url2 === 'email-settings' ? 'active' : 'null'"><a routerLink="settings/email-settings"> Email
+          Settings </a></li>
+        <li [ngClass]="url2 === 'invoive-settings' ? 'active' : 'null'"><a routerLink="settings/invoive-settings">
+          Invoice Settings </a></li>
+        <li [ngClass]="url2 === 'salary-settings' ? 'active' : 'null'"><a routerLink="settings/salary-settings"> Salary
+          Settings </a></li>
+        <li [ngClass]="url2 === 'notifications' ? 'active' : 'null'"><a routerLink="settings/notifications">
+          Notifications </a></li>
+        <li [ngClass]="url2 === 'change-password' ? 'active' : 'null'"><a routerLink="settings/change-password"> Change
+          Password </a></li>
+        <li [ngClass]="url2 === 'leave-type' ? 'active' : 'null'"><a routerLink="settings/leave-type"> Leave Type </a>
+        </li>
+      </ul>
+      <ul *ngIf='chatView' class="sidebar-menu">
+        <li>
+          <a routerLink="dashboard"><i class="la la-home"></i> <span>Back to Home</span></a>
+        </li>
+        <li class="menu-title">Chat Groups <a href="#" data-toggle="modal" data-target="#add_group"><i
+          class="fa fa-plus"></i></a></li>
+        <li>
+          <a href="javascript:">#General</a>
+        </li>
+        <li>
+          <a href="javascript:">#Video Responsive Survey</a>
+        </li>
+        <li>
+          <a href="javascript:">#500rs</a>
+        </li>
+        <li>
+          <a href="javascript:">#warehouse</a>
+        </li>
+        <li class="menu-title">Direct Chats <a href="#" data-toggle="modal" data-target="#add_chat_user"><i
+          class="fa fa-plus"></i></a></li>
+        <li>
+          <a href="javascript:"><span class="status online"></span> John Doe <span
+            class="badge bg-danger pull-right">1</span></a>
+        </li>
+        <li>
+          <a href="javascript:"><span class="status offline"></span> Richard Miles <span
+            class="badge bg-danger pull-right">18</span></a>
+        </li>
+        <li>
+          <a href="javascript:"><span class="status away"></span> John Smith</a>
+        </li>
+        <li class="active">
+          <a href="javascript:"><span class="status online"></span> Mike Litorus <span
+            class="badge bg-danger pull-right">108</span></a>
+        </li>
+      </ul>
+      <ul *ngIf='taskView' class="sidebar-menu">
+        <li>
+          <a routerLink="dashboard"><i class="la la-home"></i> <span>Back to Home</span></a>
+        </li>
+        <li class="menu-title">Projects <a href="javascript:" data-toggle="modal" data-target="#create_project"><i
+          class="fa fa-plus"></i></a></li>
+        <li>
+          <a href="javascript:">School Guru</a>
+        </li>
+        <li class="active">
+          <a href="javascript:">Harvey Clinic</a>
+        </li>
+        <li>
+          <a href="javascript:">Penabook</a>
+        </li>
+        <li>
+          <a href="javascript:">Food and Drinks</a>
+        </li>
+      </ul>
+      <ul *ngIf='callView' class="sidebar-menu">
+        <li>
+          <a routerLink="dashboard"><i class="la la-home"></i> <span>Back to Home</span></a>
+        </li>
+        <li class="menu-title">Chat Groups <a href="#" data-toggle="modal" data-target="#add_group"><i
+          class="fa fa-plus"></i></a></li>
+        <li>
+          <a href="javascript:">#General</a>
+        </li>
+        <li>
+          <a href="javascript:">#Video Responsive Survey</a>
+        </li>
+        <li>
+          <a href="javascript:">#500rs</a>
+        </li>
+        <li>
+          <a href="javascript:">#warehouse</a>
+        </li>
+        <li class="menu-title">Direct Chats <a href="#" data-toggle="modal" data-target="#add_chat_user"><i
+          class="fa fa-plus"></i></a></li>
+        <li>
+          <a href="javascript:"><span class="status online"></span> John Doe <span
+            class="badge bg-danger pull-right">1</span></a>
+        </li>
+        <li>
+          <a href="javascript:"><span class="status offline"></span> Richard Miles <span
+            class="badge bg-danger pull-right">18</span></a>
+        </li>
+        <li>
+          <a href="javascript:"><span class="status away"></span> John Smith</a>
+        </li>
+        <li class="active">
+          <a href="javascript:"><span class="status online"></span> Mike Litorus <span
+            class="badge bg-danger pull-right">108</span></a>
+        </li>
+      </ul>
+      <ul *ngIf='mailView' class="sidebar-menu">
+        <li>
+          <a routerLink="dashboard"><i class="la la-home"></i> <span>Back to Home</span></a>
+        </li>
+        <li class="menu-title"><a routerLink="inbox/compose" class="btn btn-primary btn-block">Compose</a></li>
+        <li class="active">
+          <a href="javascript:">Inbox <span class="mail-count">(21)</span></a>
+        </li>
+        <li>
+          <a href="javascript:">Starred</a>
+        </li>
+        <li>
+          <a href="javascript:">Sent Mail</a>
+        </li>
+        <li>
+          <a href="javascript:">Trash</a>
+        </li>
+        <li>
+          <a href="javascript:">Draft <span class="mail-count">(8)</span></a>
+        </li>
+        <li class="menu-title">Label <a href="javascript:"><i class="fa fa-plus"></i></a></li>
+        <li>
+          <a href="javascript:"><i class="fa fa-circle text-success mail-label"></i> Work</a>
+        </li>
+        <li>
+          <a href="javascript:"><i class="fa fa-circle text-danger mail-label"></i> Office</a>
+        </li>
+        <li>
+          <a href="javascript:"><i class="fa fa-circle text-warning mail-label"></i> Personal</a>
+        </li>
+      </ul>
+      <ul *ngIf='composeView' class="sidebar-menu">
+        <li>
+          <a routerLink="inbox"><i class="la la-home"></i> <span>Back to Inbox</span></a>
+        </li>
+        <li>
+          <a routerLink="inbox">Inbox <span class="mail-count">(21)</span></a>
+        </li>
+        <li>
+          <a href="javascript:">Starred</a>
+        </li>
+        <li>
+          <a href="javascript:">Sent Mail</a>
+        </li>
+        <li>
+          <a href="javascript:">Draft <span class="mail-count">(8)</span></a>
+        </li>
+        <li>
+          <a href="javascript:">Trash</a>
+        </li>
+        <li class="menu-title">Label <a href="javascript:"><i class="fa fa-plus"></i></a></li>
+        <li>
+          <a href="javascript:"><i class="fa fa-circle text-success mail-label"></i> Work</a>
+        </li>
+        <li>
+          <a href="javascript:"><i class="fa fa-circle text-danger mail-label"></i> Office</a>
+        </li>
+        <li>
+          <a href="javascript:"><i class="fa fa-circle text-warning mail-label"></i> Personal</a>
+        </li>
+      </ul>
+      <ul *ngIf='messageView' class="sidebar-menu">
+        <li>
+          <a routerLink="inbox"><i class="la la-home"></i> <span>Back to Inbox</span></a>
+        </li>
+        <li>
+          <a routerLink="inbox">Inbox <span class="mail-count">(21)</span></a>
+        </li>
+        <li>
+          <a href="javascript:">Starred</a>
+        </li>
+        <li>
+          <a href="javascript:">Sent Mail</a>
+        </li>
+        <li>
+          <a href="javascript:">Draft <span class="mail-count">(8)</span></a>
+        </li>
+        <li>
+          <a href="javascript:">Trash</a>
+        </li>
+        <li class="menu-title">Label <a href="javascript:"><i class="fa fa-plus"></i></a></li>
+        <li>
+          <a href="javascript:"><i class="fa fa-circle text-success mail-label"></i> Work</a>
+        </li>
+        <li>
+          <a href="javascript:"><i class="fa fa-circle text-danger mail-label"></i> Office</a>
+        </li>
+        <li>
+          <a href="javascript:"><i class="fa fa-circle text-warning mail-label"></i> Personal</a>
+        </li>
+      </ul>
+    </div>
+    <div class="cover-bar"></div>
+  </div>
+</div>
+
