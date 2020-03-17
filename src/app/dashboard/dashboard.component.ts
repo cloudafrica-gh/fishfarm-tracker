@@ -28,7 +28,8 @@ export class DashboardComponent implements OnInit, AfterContentInit {
 
   // Initialized to specific date (09.10.2018).
   public model: any = { date: { year: 2018, month: 10, day: 9 } };
-  public dash: any = { 'projects': 112, 'clients': 44, 'tasks': 37, 'employees': 218 };
+  public dash: any = { 'projects': 43, 'clients': 44, 'tasks': 37, 'employees': 218 };
+  public userProfile: any;
 
   constructor(private appService: AppService, private router: Router) {
     this.projects = appService.projects;
@@ -38,49 +39,48 @@ export class DashboardComponent implements OnInit, AfterContentInit {
   }
 
   ngAfterContentInit() {
-
   }
 
   ngOnInit() {
+    this.userProfile = localStorage.getItem('profile');
+    console.log('profile: ', JSON.parse(this.userProfile));
 
-    var pro_heights = $(".panel-eqHeight-clients").map(function () {
+    const pro_heights = $('.panel-eqHeight-clients').map(function () {
       return $(this).height();
     }).get(),
       pro_maxHeight = Math.max.apply(null, pro_heights);
-    $(".panel-eqHeight-projects").height(pro_maxHeight);
-    $(".panel-eqHeight-clients").height(pro_maxHeight);
+    $('.panel-eqHeight-projects').height(pro_maxHeight);
+    $('.panel-eqHeight-clients').height(pro_maxHeight);
 
-    var pay_heights = $(".panel-eqHeight-invoices").map(function () {
+    const pay_heights = $('.panel-eqHeight-invoices').map(function () {
       return $(this).height();
     }).get(),
       pay_maxHeight = Math.max.apply(null, pay_heights);
-    $(".panel-eqHeight-payments").height(pay_maxHeight);
-    $(".panel-eqHeight-invoices").height(pay_maxHeight);
+    $('.panel-eqHeight-payments').height(pay_maxHeight);
+    $('.panel-eqHeight-invoices').height(pay_maxHeight);
 
     // Area Chart
-	
-    Morris.Area({
-      element: 'area-charts',
-      data: [
-        { y: '2006', a: 100, b: 90 },
-        { y: '2007', a: 75,  b: 65 },
-        { y: '2008', a: 50,  b: 40 },
-        { y: '2009', a: 75,  b: 65 },
-        { y: '2010', a: 50,  b: 40 },
-        { y: '2011', a: 75,  b: 65 },
-        { y: '2012', a: 100, b: 90 }
-      ],
-      xkey: 'y',
-      ykeys: ['a', 'b'],
-      labels: ['Total Invoice', 'Pending Invoice'],
-      lineColors: ['#ff9b44','#fc6075'],
-      lineWidth: '3px',
-      resize: true,
-      redraw: true
-      });
-  
+    // Morris.Area({
+    //   element: 'area-charts',
+    //   data: [
+    //     { y: '2006', a: 100, b: 90 },
+    //     { y: '2007', a: 75,  b: 65 },
+    //     { y: '2008', a: 50,  b: 40 },
+    //     { y: '2009', a: 75,  b: 65 },
+    //     { y: '2010', a: 50,  b: 40 },
+    //     { y: '2011', a: 75,  b: 65 },
+    //     { y: '2012', a: 100, b: 90 }
+    //   ],
+    //   xkey: 'y',
+    //   ykeys: ['a', 'b'],
+    //   labels: ['Total Invoice', 'Pending Invoice'],
+    //   lineColors: ['#ff9b44', '#fc6075'],
+    //   lineWidth: '3px',
+    //   resize: true,
+    //   redraw: true
+    //   });
+
     // Bar Chart
-    
     Morris.Bar({
       element: 'bar-charts',
       data: [
@@ -95,37 +95,35 @@ export class DashboardComponent implements OnInit, AfterContentInit {
       xkey: 'y',
       ykeys: ['a', 'b'],
       labels: ['Total Income', 'Total Outcome'],
-      lineColors: ['#ff9b44','#fc6075'],
+      lineColors: ['#ff9b44', '#fc6075'],
       lineWidth: '3px',
-      barColors: ['#ff9b44','#fc6075'],
+      barColors: ['#ff9b44', '#fc6075'],
       resize: true,
       redraw: true
     });
-    
+
     // Line Chart
-    
-    Morris.Line({
-      element: 'line-charts',
-      data: [
-        { y: '2006', a: 50, b: 90 },
-        { y: '2007', a: 75,  b: 65 },
-        { y: '2008', a: 50,  b: 40 },
-        { y: '2009', a: 75,  b: 65 },
-        { y: '2010', a: 50,  b: 40 },
-        { y: '2011', a: 75,  b: 65 },
-        { y: '2012', a: 100, b: 50 }
-      ],
-      xkey: 'y',
-      ykeys: ['a', 'b'],
-      labels: ['Total Sales', 'Total Revenue'],
-      lineColors: ['#ff9b44','#fc6075'],
-      lineWidth: '3px',
-      resize: true,
-      redraw: true
-    });
-    
+    // Morris.Line({
+    //   element: 'line-charts',
+    //   data: [
+    //     { y: '2006', a: 50, b: 90 },
+    //     { y: '2007', a: 75,  b: 65 },
+    //     { y: '2008', a: 50,  b: 40 },
+    //     { y: '2009', a: 75,  b: 65 },
+    //     { y: '2010', a: 50,  b: 40 },
+    //     { y: '2011', a: 75,  b: 65 },
+    //     { y: '2012', a: 100, b: 50 }
+    //   ],
+    //   xkey: 'y',
+    //   ykeys: ['a', 'b'],
+    //   labels: ['Total Sales', 'Total Revenue'],
+    //   lineColors: ['#ff9b44', '#fc6075'],
+    //   lineWidth: '3px',
+    //   resize: true,
+    //   redraw: true
+    // });
+
     // Donut Chart
-      
     Morris.Donut({
       element: 'pie-charts',
       colors: [
@@ -135,10 +133,10 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         '#fd9ba8'
       ],
       data: [
-        {label: "Employees", value: 30},
-        {label: "Clients", value: 15},
-        {label: "Projects", value: 45},
-        {label: "Tasks", value: 10}
+        {label: 'Employees', value: 30},
+        {label: 'Users', value: 15},
+        {label: 'Ponds', value: 10},
+        {label: 'Recordings', value: 43}
       ],
       resize: true,
       redraw: true

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AppService} from '../app.service';
+import {DataService} from '../services/data.service';
 
 declare const $: any;
 
@@ -16,7 +17,12 @@ export class UsersComponent implements OnInit {
   public addU: any = {};
   public uptU: any = [];
 
-  constructor(private userService: AppService) {
+  public userPond = true;
+
+  constructor(
+    private userService: AppService,
+    private dataService: DataService
+  ) {
     this.rows = userService.users;
     this.srch = [...this.rows];
   }
@@ -41,6 +47,18 @@ export class UsersComponent implements OnInit {
       'user_id': 0
     };
 
+    this.getMyPonds();
+  }
+
+
+  getMyPonds() {
+    this.dataService.getUserFarmPonds()
+      .subscribe(res => {
+        this.rows = res;
+        console.log('get user ponds responds >>>', this.rows);
+      }, err => {
+        console.log('error getting user ponds', err);
+      });
   }
 
   addReset() {

@@ -1,26 +1,33 @@
   <div class="account-page">
-      <a routerLink="../../career/jobs" class="btn btn-primary apply-btn">Apply Job</a>
+<!--      <a routerLink="../../career/jobs" class="btn btn-primary apply-btn">Apply Job</a>-->
     <div class="container">
-      <h3 class="account-title">Management Login</h3>
+      <h5 class="account-title"></h5>
       <div class="account-box">
         <div class="account-wrapper">
           <div class="account-logo">
-            <a href="javascript:"><img src="assets/img/logo2.png" alt="Focus Technologies"></a>
+            <a href="javascript:"><img src="assets/img/tiseed-20.png" alt="Fishfarm Tracker"></a>
           </div>
-          <form action="index.html">
-            <div class="form-group form-focus">
-              <label class="control-label">Username or Email</label>
-              <input class="form-control floating" type="text">
+          <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit(loginForm.value)">
+            <div class="form-group">
+              <label class="control-label">Email or Phone</label>
+              <input class="form-control floating" type="text" formControlName="userName">
             </div>
-            <div class="form-group form-focus">
+            <div class="form-group">
               <label class="control-label">Password</label>
-              <input class="form-control floating" type="password">
+              <input class="form-control floating" type="password" formControlName="password">
             </div>
+            <blockquote *ngIf="isLoadingResults" >
+              <span>{{loadingMsg}}</span>
+            </blockquote>
+            <span *ngIf="errorMsg">{{errorMsg}}</span>
+
             <div class="form-group text-center">
-              <button class="btn btn-primary btn-block account-btn" routerLink="../../dashboard">Login</button>
+              <button class="btn btn-primary btn-block account-btn" [disabled]="!loginForm.valid">Login</button>
             </div>
+
             <div class="text-center">
-              <a routerLink="../forgot-password">Forgot your password?</a>
+              <a routerLink="/auth/register">Register</a>&nbsp;<b>|</b>&nbsp;
+              <a routerLink="/auth/forget-password"><em>Forgot your password?</em></a>
             </div>
           </form>
         </div>

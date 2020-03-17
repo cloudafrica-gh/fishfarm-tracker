@@ -1,40 +1,39 @@
-
 <div class="content container-fluid">
   <div class="row">
     <div class="col-xs-4">
-      <h4 class="page-title">Employee</h4>
+      <h4 class="page-title">All Users</h4>
     </div>
     <div class="col-xs-8 text-right m-b-30">
       <a href="javascript:" class="btn btn-primary pull-right rounded" (click)="addReset()"><i class="fa fa-plus"></i>
-        Add Employee</a>
+        Add Pond</a>
       <div class="view-icons">
-        <a class="grid-view btn btn-link" [ngClass]="{active:!allEmployees}" (click)="allEmployees=false"><i class="fa fa-th"></i></a>
-        <a class="list-view btn btn-link" [ngClass]="{active:allEmployees}" (click)="allEmployees=true"><i class="fa fa-bars"></i></a>
+        <a class="grid-view btn btn-link" [ngClass]="{active:!allEmployees}" (click)="allEmployees=false"><i
+          class="fa fa-th"></i></a>
+        <a class="list-view btn btn-link" [ngClass]="{active:allEmployees}" (click)="allEmployees=true"><i
+          class="fa fa-bars"></i></a>
       </div>
     </div>
   </div>
   <div class="row filter-row">
     <div class="col-sm-3 col-xs-6">
       <div class="form-group form-focus">
-        <label class="control-label">Employee ID</label>
+        <label class="control-label">User Name</label>
         <input type="text" class="form-control floating" (input)="searchID($event.target.value)"/>
       </div>
     </div>
     <div class="col-sm-3 col-xs-6">
       <div class="form-group form-focus">
-        <label class="control-label">Employee Name</label>
+        <label class="control-label">Phone Number</label>
         <input type="text" class="form-control floating" (input)="searchName($event.target.value)"/>
       </div>
     </div>
     <div class="col-sm-3 col-xs-6">
       <div class="form-group form-focus select-focus">
-        <label class="control-label">Designation</label>
+        <label class="control-label">Fish Farm</label>
         <select class="select floating select-designation" (input)="searchDesg($event.target.value)">
-          <option value="">All Designations</option>
-          <option value="Web Developer">Web Developer</option>
-          <option value="Web Designer">Web Designer</option>
-          <option value="Android Developer">Android Developer</option>
-          <option value="Ios Developer">Ios Developer</option>
+          <option value="">Choose</option>
+          <option value="Web Developer">Farm Name</option>
+          <option value="Web Designer">Location</option>
         </select>
       </div>
     </div>
@@ -42,78 +41,81 @@
       <a href="javascript:" class="btn btn-success btn-block"> Search </a>
     </div>
   </div>
+  <blockquote *ngIf="isLoading" >
+    <span>{{loadingMsg}}</span>
+  </blockquote>
   <div class="row" *ngIf="allEmployees">
     <div class="col-md-12">
       <div class="table-responsive table-responsive-inherit">
-      <table class="table table-striped custom-table" [mfData]="rows" #mf="mfDataTable" [mfRowsOnPage]="5">
-        <thead>
+        <table class="table table-striped custom-table" [mfData]="rows" #mf="mfDataTable" [mfRowsOnPage]="10">
+          <thead>
           <tr>
-            <th style="width: 40%">
-              <mfDefaultSorter by="firstName">Name</mfDefaultSorter>
+            <th style="width: 10%">
+              <mfDefaultSorter by="">Index</mfDefaultSorter>
+            </th>
+            <th style="width: 100%">
+              <mfDefaultSorter by="userId">UserId</mfDefaultSorter>
             </th>
             <th style="width: 20%">
-              <mfDefaultSorter by="employeeID">Employee ID</mfDefaultSorter>
+              <mfDefaultSorter by="fullName">FullName</mfDefaultSorter>
             </th>
-            <th style="width: 20%">
+            <th style="width: 5%">
               <mfDefaultSorter by="email">Email</mfDefaultSorter>
             </th>
-            <th style="width: 10%">
-              <mfDefaultSorter by="mobile">Mobile</mfDefaultSorter>
+            <th style="width: 5%">
+              <mfDefaultSorter by="phoneNumber">MobilePhone</mfDefaultSorter>
             </th>
-            <th style="width: 20%">
-              <mfDefaultSorter by="joinDate">Join Date</mfDefaultSorter>
+            <th style="width: 100%">
+              <mfDefaultSorter by="farmName">FarmName</mfDefaultSorter>
             </th>
             <th style="width: 10%" class="text-center">
-              <mfDefaultSorter by="designation">Designation</mfDefaultSorter>
+              <mfDefaultSorter by="location">Location</mfDefaultSorter>
             </th>
+            <th style="width: 10%" class="text-center">
+              <mfDefaultSorter by="aboutFarm">AboutFarm</mfDefaultSorter>
+            </th>
+            <th style="width: 10%" class="text-center">
+              <mfDefaultSorter by="noOfPonds">noOfPonds</mfDefaultSorter>
+            </th>
+            <th style="width: 10%" class="text-center">
+              <mfDefaultSorter by="noOfHatcheries">noOfHatcheries</mfDefaultSorter>
+            </th>
+            <th style="width: 10%" class="text-center">
+              <mfDefaultSorter by="noOfCages">noOfCages</mfDefaultSorter>
+            </th>
+
             <th style="width: 20%">
               <mfDefaultSorter by="joinDate">Actions</mfDefaultSorter>
             </th>
           </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of mf.data">
-            <td><a href="javascript:" class="avatar">{{item.firstName.split('')[0]}}</a>
-              <h2><a href="javascript:">{{item.firstName}} {{item.lastName}}<span>{{item.designation}}</span></a></h2>
-            </td>
-            <td>FT-00{{item.employeeID}}</td>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of mf.data, let i = index">
+            <td># {{i + 1}}</td>
+            <td>{{item.userId |  truncate:[20, '...']}}</td>
+            <td>{{item.fullName}}</td>
             <td>{{item.email}}</td>
-            <td>{{item.phone}}</td>
-            <td>{{item.joinDate.formatted}}</td>
-            <td class="text-center">
-              <div class="dropdown">
-                <a class="btn btn-white btn-sm rounded dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                {{item.designation}} <i class="caret"></i></a>
-                <ul class="dropdown-menu">
-                  <li><a href="javascript:">Software Engineer</a></li>
-                  <li><a href="javascript:">Software Tester</a></li>
-                  <li><a href="javascript:">Frontend Developer</a></li>
-                  <li><a href="javascript:">UI/UX Developer</a></li>
-                </ul>
-              </div>
-            </td>
-            <td class="text-right">
-              <div class="dropdown">
-                <a href="javascript:" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                <ul class="dropdown-menu pull-right">
-                  <li><a href="javascript:" data-toggle="modal" data-target="#edit_employee" (click)="onEdit(item)"><i class="fa fa-pencil m-r-5"></i>
-                      Edit</a></li>
-                  <li><a (click)="onDelete(item.employeeID)"><i class="fa fa-trash-o m-r-5"></i>
-                      Delete</a></li>
-                </ul>
-              </div>
+            <td>{{item.phoneNumber}}</td>
+            <td>{{item.farmName}}</td>
+            <td>{{item.location}}</td>
+            <td>{{item.aboutFarm}}</td>
+            <td>{{item.noOfPonds}}</td>
+            <td>{{item.noOfHatcheries}}</td>
+            <td>{{item.noOfCages}}</td>
+            <td class="container text-center">
+              <span class="label label-primary">Economic Indicator</span>
             </td>
           </tr>
-        </tbody>
-        <tfoot>
+          </tbody>
+          <tfoot>
           <tr>
             <td colspan="12">
               <mfBootstrapPaginator></mfBootstrapPaginator>
             </td>
           </tr>
-        </tfoot>
-      </table>
-</div>
+          </tfoot>
+        </table>
+      </div>
     </div>
   </div>
   <div class="row staff-grid-row" *ngIf="!allEmployees">
@@ -123,14 +125,17 @@
           <a href="javascript:"><img class="avatar" src="assets/img/user.jpg" alt=""></a>
         </div>
         <div class="dropdown profile-action">
-          <a href="javascript:" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+          <a href="javascript:" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+            class="fa fa-ellipsis-v"></i></a>
           <ul class="dropdown-menu pull-right">
-            <li><a href="javascript:" data-toggle="modal" data-target="#edit_employee"  (click)="onEdit(item)"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
+            <li><a href="javascript:" data-toggle="modal" data-target="#edit_employee" (click)="onEdit(item)"><i
+              class="fa fa-pencil m-r-5"></i> Edit</a></li>
             <li><a (click)="onDelete(item.id)"><i class="fa fa-trash-o m-r-5"></i>
-                Delete</a></li>
+              Delete</a></li>
           </ul>
         </div>
-        <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="javascript:">{{item.firstName}} {{item.lastName}}</a></h4>
+        <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="javascript:">{{item.firstName}} {{item.lastName}}</a>
+        </h4>
         <div class="small text-muted">{{item.designation}}</div>
       </div>
     </div>
@@ -150,25 +155,30 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">First Name <span class="text-danger m-l-5">*</span></label>
-                <input class="form-control" type="text" [(ngModel)]="addEmp.firstName" name="firstName" #firstName="ngModel" required>
+                <input class="form-control" type="text" [(ngModel)]="addEmp.firstName" name="firstName"
+                       #firstName="ngModel" required>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Last Name</label>
-                <input class="form-control" type="text" [(ngModel)]="addEmp.lastName" name="lastName" #lastName="ngModel">
+                <input class="form-control" type="text" [(ngModel)]="addEmp.lastName" name="lastName"
+                       #lastName="ngModel">
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Username <span class="text-danger m-l-5">*</span></label>
-                <input class="form-control" type="text" [(ngModel)]="addEmp.userName" name="userName" #userName="ngModel" required>
+                <input class="form-control" type="text" [(ngModel)]="addEmp.userName" name="userName"
+                       #userName="ngModel" required>
               </div>
             </div>
             <div class="col-sm-6">
-              <div class="form-group" [class.has-error]="email.invalid && email.touched" [class.has-success]="email.valid">
+              <div class="form-group" [class.has-error]="email.invalid && email.touched"
+                   [class.has-success]="email.valid">
                 <label class="control-label">Email <span class="text-danger m-l-5">*</span></label>
-                <input class="form-control" type="email" [(ngModel)]="addEmp.email" name="email" #email="ngModel" pattern="([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})" required>
+                <input class="form-control" type="email" [(ngModel)]="addEmp.email" name="email" #email="ngModel"
+                       pattern="([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})" required>
                 <span class="help-block" *ngIf="email.errors && email.touched">
                   Email is invalid
                 </span>
@@ -177,28 +187,32 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Password<span class="text-danger m-l-5">*</span></label>
-                <input class="form-control" type="password" [(ngModel)]="addEmp.password" name="password" #password="ngModel" required>
+                <input class="form-control" type="password" [(ngModel)]="addEmp.password" name="password"
+                       #password="ngModel" required>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Confirm Password<span class="text-danger m-l-5">*</span></label>
-                <input class="form-control" type="password" [(ngModel)]="addEmp.cPassword" name="cPassword" #cPassword="ngModel" required>
+                <input class="form-control" type="password" [(ngModel)]="addEmp.cPassword" name="cPassword"
+                       #cPassword="ngModel" required>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Employee ID <span class="text-danger m-l-5">*</span></label>
-                <input type="text" class="form-control" readonly [(ngModel)]="addEmp.employeeID" name="employeeID" #employeeID="ngModel" required>
+                <input type="text" class="form-control" readonly [(ngModel)]="addEmp.employeeID" name="employeeID"
+                       #employeeID="ngModel" required>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Joining Date <span class="text-danger m-l-5">*</span></label>
-                <my-date-picker name="joinDate" [options]="myDatePickerOptions" [(ngModel)]="addEmp.joinDate" #joinDate="ngModel" required></my-date-picker>
+                <my-date-picker name="joinDate" [options]="myDatePickerOptions" [(ngModel)]="addEmp.joinDate"
+                                #joinDate="ngModel" required></my-date-picker>
               </div>
             </div>
-           
+
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Company</label>
@@ -211,7 +225,8 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Designation<span class="text-danger m-l-5">*</span></label>
-                <select class="select form-control" [(ngModel)]="addEmp.designation" name="designation" #designation="ngModel" required>
+                <select class="select form-control" [(ngModel)]="addEmp.designation" name="designation"
+                        #designation="ngModel" required>
                   <option value="Web Developer">Web Developer</option>
                   <option value="Web Designer">Web Designer</option>
                   <option value="SEO Analyst">SEO Analyst</option>
@@ -219,9 +234,11 @@
               </div>
             </div>
             <div class="col-sm-6">
-              <div class="form-group" [class.has-error]="phone.invalid && phone.touched" [class.has-success]="phone.valid">
+              <div class="form-group" [class.has-error]="phone.invalid && phone.touched"
+                   [class.has-success]="phone.valid">
                 <label class="control-label">Phone<span class="text-danger m-l-5">*</span></label>
-                <input class="form-control" type="text" [(ngModel)]="addEmp.phone" name="phone" #phone="ngModel" pattern="(\d{10}|\d{12})" required>
+                <input class="form-control" type="text" [(ngModel)]="addEmp.phone" name="phone" #phone="ngModel"
+                       pattern="(\d{10}|\d{12})" required>
                 <span class="help-block" *ngIf="phone.errors && phone.touched">
                   Phone Number is invalid
                 </span>
@@ -231,46 +248,46 @@
           <div class="table-responsive m-t-15">
             <table class="table table-striped custom-table">
               <thead>
-                <tr>
-                  <th>Module Permission</th>
-                  <th class="text-center">Read</th>
-                  <th class="text-center">Write</th>
-                  <th class="text-center">Create</th>
-                  <th class="text-center">Delete</th>
-                  <th class="text-center">Import</th>
-                  <th class="text-center">Export</th>
-                </tr>
+              <tr>
+                <th>Module Permission</th>
+                <th class="text-center">Read</th>
+                <th class="text-center">Write</th>
+                <th class="text-center">Create</th>
+                <th class="text-center">Delete</th>
+                <th class="text-center">Import</th>
+                <th class="text-center">Export</th>
+              </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of modules">
-                  <td>{{item.module}}</td>
-                  <td class="text-center">
-                    <input [attr.checked]="item.read ? 'checked' : null" type="checkbox">
-                  </td>
-                  <td class="text-center">
-                    <input [attr.checked]="item.write ? 'checked' : null" type="checkbox">
-                  </td>
-                  <td class="text-center">
-                    <input [attr.checked]="item.create ? 'checked' : null" type="checkbox">
-                  </td>
-                  <td class="text-center">
-                    <input [attr.checked]="item.delete ? 'checked' : null" type="checkbox">
-                  </td>
-                  <td class="text-center">
-                    <input [attr.checked]="item.import ? 'checked' : null" type="checkbox">
-                  </td>
-                  <td class="text-center">
-                    <input [attr.checked]="item.export ? 'checked' : null" type="checkbox">
-                  </td>
-                </tr>
+              <tr *ngFor="let item of modules">
+                <td>{{item.module}}</td>
+                <td class="text-center">
+                  <input [attr.checked]="item.read ? 'checked' : null" type="checkbox">
+                </td>
+                <td class="text-center">
+                  <input [attr.checked]="item.write ? 'checked' : null" type="checkbox">
+                </td>
+                <td class="text-center">
+                  <input [attr.checked]="item.create ? 'checked' : null" type="checkbox">
+                </td>
+                <td class="text-center">
+                  <input [attr.checked]="item.delete ? 'checked' : null" type="checkbox">
+                </td>
+                <td class="text-center">
+                  <input [attr.checked]="item.import ? 'checked' : null" type="checkbox">
+                </td>
+                <td class="text-center">
+                  <input [attr.checked]="item.export ? 'checked' : null" type="checkbox">
+                </td>
+              </tr>
 
               </tbody>
             </table>
           </div>
           <div class="m-t-20 text-center">
-              <div *ngIf="addEmployeeValidation" class="alert alert-info m-t-10">
-                  <strong>Warning!</strong> Must Fill all Mandatory Fields.
-              </div>
+            <div *ngIf="addEmployeeValidation" class="alert alert-info m-t-10">
+              <strong>Warning!</strong> Must Fill all Mandatory Fields.
+            </div>
             <button class="btn btn-primary">Create Employee</button>
           </div>
         </form>
@@ -278,7 +295,6 @@
     </div>
   </div>
 </div>
-
 
 <div id="delete_employee" class="modal custom-modal fade" role="dialog">
   <div class="modal-dialog">
@@ -289,7 +305,7 @@
       <form>
         <div class="modal-body card-box">
           <p>Are you sure want to delete this?</p>
-          <div class="m-t-20"> <a href="javascript:" class="btn btn-default" data-dismiss="modal">Close</a>
+          <div class="m-t-20"><a href="javascript:" class="btn btn-default" data-dismiss="modal">Close</a>
             <button type="submit" class="btn btn-danger">Delete</button>
           </div>
         </div>

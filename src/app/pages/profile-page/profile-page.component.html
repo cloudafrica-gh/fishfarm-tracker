@@ -22,9 +22,11 @@
             <div class="row">
               <div class="col-md-5">
                 <div class="profile-info-left">
-                  <h3 class="user-name m-t-0 m-b-0">John Doe</h3>
-                  <small class="text-muted">Web Designer</small>
-                  <div class="staff-id">Employee ID : FT-0001</div>
+                  <h3 class="user-name m-t-0 m-b-0">
+                    {{userProfile.firstName}} {{userProfile.lastName}} {{userProfile.middleName}}
+                  </h3>
+                  <small class="text-muted">About: {{userProfile.aboutFarm}}</small>
+                  <div class="staff-id">Farm Name : {{userProfile.farmName}}</div>
                   <div class="staff-msg"><a routerLink="../chat" class="btn btn-primary">Send Message</a></div>
                 </div>
               </div>
@@ -32,11 +34,11 @@
                 <ul class="personal-info">
                   <li>
                     <span class="title">Phone:</span>
-                    <span class="text"><a href="javascript:">9876543210</a></span>
+                    <span class="text"><a href="javascript:">{{userProfile.phoneNumber}}</a></span>
                   </li>
                   <li>
                     <span class="title">Email:</span>
-                    <span class="text"><a href="javascript:">johndoe@example.com</a></span>
+                    <span class="text"><a href="javascript:">{{userProfile.email}}</a></span>
                   </li>
                   <li>
                     <span class="title">Birthday:</span>
@@ -44,7 +46,7 @@
                   </li>
                   <li>
                     <span class="title">Address:</span>
-                    <span class="text">1861 Bayonne Ave, Manchester Township, NJ, 08759</span>
+                    <span class="text">1861 Bayonne Ave, {{userProfile.location}}, {{userProfile.region}}</span>
                   </li>
                   <li>
                     <span class="title">Gender:</span>
@@ -63,11 +65,11 @@
       <div class="card-box m-b-0">
         <h3 class="card-title">Skills</h3>
         <div class="skills">
-          <span>IOS</span>
-          <span>Android</span>
-          <span>Html</span>
-          <span>CSS</span>
-          <span>Codignitor</span>
+          <span>noOfPonds</span>
+          <span>noOfHatcheries</span>
+          <span>noOfCages</span>
+          <span>economicIndicator</span>
+          <span>fistHealth</span>
           <span>Php</span>
           <span>Javascript</span>
           <span>Wordpress</span>

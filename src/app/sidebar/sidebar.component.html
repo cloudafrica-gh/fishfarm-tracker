@@ -13,14 +13,20 @@
           </a>
           <ul class="list-unstyled" [ngClass]="url === 'employees'? 'submenu-block' : 'dsply-none'">
             <li>
-              <a routerLink="employees/all-employees" [ngClass]="url2 === 'all-employees'? 'active' : 'null'">
+              <a routerLink="users/all-users" [ngClass]="url2 === 'all-users'? 'active' : 'null'">
                 All users
               </a>
             </li>
             <li>
-              <a routerLink="employees/leaves" [ngClass]="url2 === 'leaves'? 'active' : 'null'">
+              <a routerLink="users/all-ponds" [ngClass]="url2 === 'all-ponds'? 'active' : 'null'">
                 <span>All user ponds</span>
                 <span class="badge bg-primary pull-right">1</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="users/recordings" [ngClass]="url2 === 'recordings'? 'active' : 'null'">
+                <span>Recordings</span>
+                <span class="badge bg-primary pull-right">10</span>
               </a>
             </li>
           </ul>
@@ -30,7 +36,7 @@
 <!--        </li>-->
 
         <li [ngClass]="url === 'users'? 'active' : 'null'">
-          <a routerLink="users"><i class="la la-user-plus"></i> <span> My ponds </span></a>
+          <a routerLink="my-ponds"><i class="la la-user-plus"></i> <span> My ponds </span></a>
         </li>
 
         <li>

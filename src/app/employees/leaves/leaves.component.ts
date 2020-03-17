@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IMyDpOptions} from 'mydatepicker';
-import { ActivatedRoute,Router } from '@angular/router';
-import { AppService } from 'src/app/app.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AppService} from 'src/app/app.service';
+import {DataService} from '../../services/data.service';
 
-declare const $:any;
+declare const $: any;
 
 @Component({
   selector: 'app-leaves',
@@ -38,21 +39,30 @@ export class LeavesComponent implements OnInit {
     inline: false,
     height: '38px'
   };
-  
+
   rows = [];
 
   public srch = [];
-  public addL:any = {};
-  addLeaveValidation:boolean = false;
+  public addL: any = {};
+  addLeaveValidation = false;
+  public isLoading = true;
+  public loadingMsg = '';
+  public errorMsg = '';
+  public allLeaves = true;
 
-  constructor(private appService:AppService,private router:Router,private route:ActivatedRoute) { 
+  constructor(
+    private appService: AppService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private dataService: DataService
+  ) {
     this.rows = appService.leaves;
     this.srch = [...this.rows];
-    
+
   }
 
   ngOnInit() {
-    
+
     $('.floating').on('focus blur', function (e) {
       $(this).parents('.form-focus').toggleClass('focused', (e.type === 'focus' || this.value.length > 0));
     }).trigger('blur');
@@ -60,95 +70,122 @@ export class LeavesComponent implements OnInit {
     // var date1 = new Date("7/13/2010");
     // var date2 = new Date("7/11/2010");
     // var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-    // var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+    // var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
     // console.log(diffDays);
+
+    this.getAllUserPonds();
   }
 
-  addReset(){
-    this.addL = {'days':2,'status':'New'};
+  addReset() {
+    this.addL = {'days': 2, 'status': 'New'};
     $('#add_leave').modal('show');
   }
 
-  addLeave(f)
-  {
-    //console.log(f.form.value);
-    let randomnumber = Math.floor(Math.random() * 99);
+  addLeave(f) {
+    // console.log(f.form.value);
+    const randomnumber = Math.floor(Math.random() * 99);
     f.form.value.leave_id = randomnumber;
-    if (f.invalid === true)
+    if (f.invalid === true) {
       this.addLeaveValidation = true;
-    else {
+    } else {
       this.addLeaveValidation = false;
       this.rows.unshift(f.form.value);
       this.srch.unshift(f.form.value);
       this.rows = this.rows;
       $('#add_leave').modal('hide');
-      }
+    }
   }
 
-  onEdit(item){
-    this.router.navigate(['employees/leaves/edit'], { queryParams: { 'id': item.leave_id } });
+  onEdit(item) {
+    this.router.navigate(['employees/leaves/edit'], {queryParams: {'id': item.leave_id}});
   }
 
-  onDelete(id){
-    //console.log("="+id+"=");
-    //let index = this.leaves.indexOf(id);
+  onDelete(id) {
+    // console.log("="+id+"=");
+    // let index = this.leaves.indexOf(id);
 
-    var index = this.rows.findIndex(function(item, i){
-      return item.leave_id === id
+    const index = this.rows.findIndex(function (item, i) {
+      return item.leave_id === id;
     });
 
-    //console.log(index);
+    // console.log(index);
     if (index > -1) {
-        this.rows.splice(index, 1);
-        this.srch.splice(index, 1);
-    }        
-    //console.log(this.rows);
+      this.rows.splice(index, 1);
+      this.srch.splice(index, 1);
+    }
+    // console.log(this.rows);
     this.rows = this.rows;
   }
 
   searchType(val) {
-    //console.log(val);
-    //console.log(this.srch);
+    // console.log(val);
+    // console.log(this.srch);
     this.rows.splice(0, this.rows.length);
-    //console.log(this.rows);
-    let temp = this.srch.filter(function(d) {
-      //console.log(d.leaveType);
+    // console.log(this.rows);
+    const temp = this.srch.filter(function (d) {
+      // console.log(d.leaveType);
       val = val.toLowerCase();
       return d.leaveType.toLowerCase().indexOf(val) !== -1 || !val;
     });
-    //console.log(temp);
+    // console.log(temp);
     this.rows.push(...temp);
-    //console.log(this.rows);
+    // console.log(this.rows);
   }
 
   searchName(val) {
-    //console.log(val);
-    //console.log(this.srch);
+    // console.log(val);
+    // console.log(this.srch);
     this.rows.splice(0, this.rows.length);
-    //console.log(this.rows);
-    let temp = this.srch.filter(function(d) {
-      //console.log(d.employeeName);
+    // console.log(this.rows);
+    const temp = this.srch.filter(function (d) {
+      // console.log(d.employeeName);
       val = val.toLowerCase();
-      return d.employeeName.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.fullName.toLowerCase().indexOf(val) !== -1 || !val;
     });
-    //console.log(temp);
+    // console.log(temp);
     this.rows.push(...temp);
-    //console.log(this.rows);
+    // console.log(this.rows);
+  }
+  searchID(val) {
+    // console.log(val);
+    val = val.toString();
+    // console.log(this.srch);
+    this.rows.splice(0, this.rows.length);
+    // console.log(this.rows);
+    const temp = this.srch.filter(function (d) {
+      // console.log(d.employeeID);
+      d.pondId = d.pondId.toString();
+      return d.pondId.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+    // console.log(temp);
+    this.rows.push(...temp);
+    // console.log(this.rows);
   }
 
   searchStatus(val) {
-    //console.log(val);
-    //console.log(this.srch);
+    // console.log(val);
+    // console.log(this.srch);
     this.rows.splice(0, this.rows.length);
-    //console.log(this.rows);
-    let temp = this.srch.filter(function(d) {
-      //console.log(d.status);
+    // console.log(this.rows);
+    const temp = this.srch.filter(function (d) {
+      // console.log(d.status);
       val = val.toLowerCase();
       return d.status.toLowerCase().indexOf(val) !== -1 || !val;
     });
-    //console.log(temp);
+    // console.log(temp);
     this.rows.push(...temp);
-    //console.log(this.rows);
+    // console.log(this.rows);
   }
 
+  getAllUserPonds() {
+    this.dataService.getAllUserPonds()
+      .subscribe(res => {
+        this.rows = res;
+        this.isLoading = false;
+        this.loadingMsg = 'data loading ...';
+        console.log('UserPondsComponent: all user ponds responds >>>', this.rows);
+      }, err => {
+        console.log('UserPondsComponent: error getting all user ponds', err);
+      });
+  }
 }
