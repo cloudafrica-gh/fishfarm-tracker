@@ -47,7 +47,7 @@ export class AuthService {
         catchError(this.handleError('UserProfile', []))
       );
   }
-  
+
   public logout() {
     localStorage.clear();
     // this.router.navigate (['/auth/login']);

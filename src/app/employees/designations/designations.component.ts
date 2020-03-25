@@ -29,7 +29,7 @@ export class DesignationsComponent implements OnInit {
     private route: ActivatedRoute,
     private dataService: DataService
   ) {
-    this.rows = appService.designations;
+    this.rows = appService.recordings;
     this.srch = [...this.rows];
 
   }

@@ -5,6 +5,24 @@ import {Injectable} from '@angular/core';
 })
 export class AppService {
 
+  public recordings = [
+    {
+      'id': 1,
+      'pondId': 2,
+      'userId': '975eafb3-e626-421d-9016-54d744c06ef7',
+      'farmName': 'Yeb Fishery',
+      'audioFile': 'voice-00121.mp3',
+      'inputType': 'mp3'
+    },
+    {
+      'id': 2,
+      'pondId': 2,
+      'userId': '975eafb3-e626-421d-9016-54d744c06ef7',
+      'farmName': 'Osoko Pond',
+      'audioFile': 'voice-00122.mp3',
+      'inputType': 'mp3'
+    },
+  ];
   public employees = [
     {
       'firstName': 'John',
@@ -49,7 +67,6 @@ export class AppService {
       'id': 'S_003'
     }
   ];
-
   public employee_modules = [
     {
       'module': 'Holidays',
@@ -125,7 +142,6 @@ export class AppService {
     }
 
   ];
-
   public holidays = [
     {
       'title': 'New Year',
@@ -177,7 +193,6 @@ export class AppService {
       'holiday_id': 7
     }
   ];
-
   public leaves = [
     {
       'employeeName': 'John Doe',
@@ -213,7 +228,6 @@ export class AppService {
       'leave_id': 3
     }
   ];
-
   public departments = [
     {'department': 'Web Development', 'department_id': 1},
     {'department': 'Support Management', 'department_id': 2},
@@ -223,7 +237,6 @@ export class AppService {
     {'department': 'Accounts Management', 'department_id': 6},
     {'department': 'Testing Management', 'department_id': 7}
   ];
-
   public designations = [
     {'designation': 'Web Developer', 'department': 'Web Development', 'designation_id': 1},
     {'designation': 'Web Designer', 'department': 'Support Management', 'designation_id': 2},
@@ -234,7 +247,6 @@ export class AppService {
     {'designation': 'NodeJS Developer', 'department': 'Application Development', 'designation_id': 7},
     {'designation': 'Front End Developer', 'department': 'Accounts Management', 'designation_id': 8}
   ];
-
   public projects = [
     {
       'projectName': 'Food and Drinks',
@@ -332,7 +344,6 @@ export class AppService {
       'endDate': {formatted: '17-01-2018'}
     }
   ];
-
   public clients = [
     {
       'id': 3,
@@ -400,7 +411,6 @@ export class AppService {
       'farmName': 'Gorma'
     },
   ];
-
   public invoices = [
     {
       'userId': '975eafb3-e626-421d-9016-54d744c06ef7',
@@ -463,7 +473,6 @@ export class AppService {
       'noOfCages': null
     },
   ];
-
   public payments = [
     {
       'paymentID': 1,
@@ -487,7 +496,6 @@ export class AppService {
       'paidAmount': 380
     }
   ];
-
   public contacts = [
     {
       'contactName': 'John Doe',
@@ -570,7 +578,6 @@ export class AppService {
       'contactID': 10
     }
   ];
-
   timingsheet = [
     {
       'sheet_id': 1,
@@ -625,7 +632,6 @@ export class AppService {
       'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel elit neque.'
     }
   ];
-
   public tickets = [
     {
       'ticket_id': 1,
@@ -648,7 +654,6 @@ export class AppService {
       'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel elit neque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum sollicitudin libero vitae est consectetur, a molestie tortor consectetur. Aenean tincidunt interdum ipsum, id pellentesque diam suscipit ut. Vivamus massa mi, fermentum eget neque eget, imperdiet tristique lectus. Proin at purus ut sem pellentesque tempor sit amet ut lectus. Sed orci augue, placerat et pretium ac, hendrerit in felis. Integer scelerisque libero non metus commodo, et hendrerit diam aliquet. Proin tincidunt porttitor ligula, a tincidunt orci pellentesque nec. Ut ultricies maximus nulla id consequat. Fusce eu consequat mi, eu euismod ligula. Aliquam porttitor neque id massa porttitor, a pretium velit vehicula. Morbi volutpat tincidunt urna, vel ullamcorper ligula fermentum at.'
     }
   ];
-
   public tasks = [
     {
       'title': 'Patient appointment booking',
@@ -681,7 +686,6 @@ export class AppService {
       'taskID': 6
     }
   ];
-
   public assets = [
     {
       'asset_user': 'John Doe',
@@ -708,7 +712,6 @@ export class AppService {
       'amount': 214
     }
   ];
-
   public users = [
     {
       'user_name': 'Daniel Porter',
@@ -732,7 +735,6 @@ export class AppService {
       'user_id': 453
     }
   ];
-
   public leaveType = [
     {
       'leave_type': 'Casual Leave',

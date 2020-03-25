@@ -20,7 +20,8 @@ export class AllEmployeesComponent implements OnInit {
   constructor(
     private appService: AppService,
     private dataService: DataService,
-    private router: Router) {
+    private router: Router
+    ) {
     this.rows = appService.employees;
     this.srch = [...this.rows];
     this.modules = appService.employee_modules;
@@ -182,5 +183,10 @@ export class AllEmployeesComponent implements OnInit {
           this.isLoading = false;
           console.log('AllUsersComponent: error all users: ', error);
         });
+  }
+
+  addUserPond(f: any) {
+    console.log(`AllUsersComponent: add user pond ==> ${f}`);
+    $('#add_userpond').modal('show');
   }
 }

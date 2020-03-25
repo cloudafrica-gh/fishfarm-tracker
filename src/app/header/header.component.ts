@@ -1,7 +1,7 @@
-import {Component, OnInit, AfterViewInit} from '@angular/core';
-import {Router, ActivatedRoute, Event, NavigationStart, NavigationEnd, NavigationError} from '@angular/router';
-import {ISlimScrollOptions} from 'ngx-slimscroll';
-import {AuthService} from '../services/auth/auth.service';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router, ActivatedRoute, Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
+import { ISlimScrollOptions } from 'ngx-slimscroll';
+import { AuthService } from '../services/auth/auth.service';
 
 declare const $: any;
 
@@ -16,16 +16,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   menuSidebar = false;
 
   public url;
-  public userProfile: any = [];
+  public userProfile: any;
   public isLoading = true;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService
-    ) {
-      this.userProfile = localStorage.getItem('profile');
-      console.log('HeaderComponent: user profile ==> ', JSON.parse(this.userProfile));
+  ) {
     router.events.subscribe((event: Event) => {
 
       if (event instanceof NavigationEnd) {
@@ -49,7 +47,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
- 
+    this.userProfile = localStorage.getItem('profile');
+    console.log('HeaderComponent: user profile ==> ', JSON.parse(this.userProfile));
+
     this.opts1 = {
       barBackground: '#878787',
       gridBackground: 'transparent',
@@ -71,7 +71,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       $('.msg-list-scroll').height(h);
       $('.msg-sidebar .slimscroll-wrapper').height(h);
     });
-
     $(document).on('click', '#toggle_btn', function () {
       if ($('body').hasClass('mini-sidebar')) {
         $('body').removeClass('mini-sidebar');
@@ -83,7 +82,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       }
       return false;
     });
-
     $(document).on('mouseover', function (e) {
       e.stopPropagation();
       if ($('body').hasClass('mini-sidebar') && $('#toggle_btn').is(':visible')) {
@@ -105,15 +103,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   getUserProfile() {
     this.authService.getUserProfile()
-      .subscribe( res => {
+      .subscribe(res => {
         this.userProfile = res;
         this.isLoading = false;
 
         console.log(`HeaderController: ${this.userProfile}`);
       },
-      error => {
-        console.log(`HeaderController: Error ==> ${error}`);
-      });
+        error => {
+          console.log(`HeaderController: Error ==> ${error}`);
+        });
   }
   onLogout() {
     this.authService.logout();

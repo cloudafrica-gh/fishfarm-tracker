@@ -6,28 +6,40 @@
           <div class="account-logo">
 <!--            <a href="javascript:"><img src="assets/img/tiseed-20.png" alt="Fishfarm Tracker"></a>-->
           </div>
-          <form action="index.html">
-            <div class="form-group form-focus">
-              <label class="control-label">Username</label>
-              <input class="form-control floating" type="text">
+          <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit(registerForm.value)">
+            <div class="form-group">
+              <label class="control-label">First Name</label>
+              <input class="form-control floating" type="text" formControlName="firstName">
             </div>
-            <div class="form-group form-focus">
+            <div class="form-group">
+              <label class="control-label">Last Name</label>
+              <input class="form-control floating" type="text" formControlName="lastName">
+            </div>
+            <div class="form-group">
+              <label class="control-label">Farm Name</label>
+              <input class="form-control floating" type="text" formControlName="farmName">
+            </div>
+            <div class="form-group">
+              <label class="control-label">Phone number</label>
+              <input class="form-control floating" type="text" formControlName="phoneNumber">
+            </div>
+            <div class="form-group">
               <label class="control-label">Email</label>
-              <input class="form-control floating" type="text">
+              <input class="form-control floating" type="email" formControlName="email">
             </div>
-            <div class="form-group form-focus">
+            <div class="form-group">
+              <label class="control-label">Region</label>
+              <input class="form-control floating" type="text" formControlName="region">
+            </div>
+            <div class="form-group">
               <label class="control-label">Password</label>
-              <input class="form-control floating" type="password">
-            </div>
-            <div class="form-group form-focus">
-              <label class="control-label">Repeat Password</label>
-              <input class="form-control floating" type="password">
+              <input class="form-control floating" type="password" formControlName="password">
             </div>
             <div class="form-group text-center">
               <button class="btn btn-primary btn-block account-btn" type="submit">Register</button>
             </div>
             <div class="text-center">
-              <a routerLink="../login">Already have an account?</a>
+              <a routerLink="/pages/login">Already have an account?</a>
             </div>
           </form>
         </div>

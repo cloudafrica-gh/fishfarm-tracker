@@ -4,8 +4,9 @@
       <h4 class="page-title">All Users</h4>
     </div>
     <div class="col-xs-8 text-right m-b-30">
-      <a href="javascript:" class="btn btn-primary pull-right rounded" (click)="addReset()"><i class="fa fa-plus"></i>
-        Add Pond</a>
+      <a href="javascript:" class="btn btn-primary pull-right rounded" (click)="addUserPond()">
+        <i class="fa fa-plus"></i> Add Pond
+      </a>
       <div class="view-icons">
         <a class="grid-view btn btn-link" [ngClass]="{active:!allEmployees}" (click)="allEmployees=false"><i
           class="fa fa-th"></i></a>
@@ -91,7 +92,7 @@
           </thead>
           <tbody>
           <tr *ngFor="let item of mf.data, let i = index">
-            <td># {{i + 1}}</td>
+            <td><a href="javascript:">#0{{i + 1}}</a></td>
             <td>{{item.userId |  truncate:[20, '...']}}</td>
             <td>{{item.fullName}}</td>
             <td>{{item.email}}</td>
@@ -142,6 +143,159 @@
   </div>
 </div>
 
+<div id="add_userpond" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h4 class="modal-title">Add New Pond</h4>
+      </div>
+      <div class="modal-body">
+        <form class="m-b-30" #addForm="ngForm" (ngSubmit)="addSubmit(addForm)" novalidate>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label">First Name <span class="text-danger m-l-5">*</span></label>
+                <input class="form-control" type="text" [(ngModel)]="addEmp.firstName" name="firstName"
+                       #firstName="ngModel" required>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label">Last Name</label>
+                <input class="form-control" type="text" [(ngModel)]="addEmp.lastName" name="lastName"
+                       #lastName="ngModel">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label">Username <span class="text-danger m-l-5">*</span></label>
+                <input class="form-control" type="text" [(ngModel)]="addEmp.userName" name="userName"
+                       #userName="ngModel" required>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group" [class.has-error]="email.invalid && email.touched"
+                   [class.has-success]="email.valid">
+                <label class="control-label">Email <span class="text-danger m-l-5">*</span></label>
+                <input class="form-control" type="email" [(ngModel)]="addEmp.email" name="email" #email="ngModel"
+                       pattern="([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})" required>
+                <span class="help-block" *ngIf="email.errors && email.touched">
+                  Email is invalid
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label">Password<span class="text-danger m-l-5">*</span></label>
+                <input class="form-control" type="password" [(ngModel)]="addEmp.password" name="password"
+                       #password="ngModel" required>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label">Confirm Password<span class="text-danger m-l-5">*</span></label>
+                <input class="form-control" type="password" [(ngModel)]="addEmp.cPassword" name="cPassword"
+                       #cPassword="ngModel" required>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label">Employee ID <span class="text-danger m-l-5">*</span></label>
+                <input type="text" class="form-control" readonly [(ngModel)]="addEmp.employeeID" name="employeeID"
+                       #employeeID="ngModel" required>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label">Joining Date <span class="text-danger m-l-5">*</span></label>
+                <my-date-picker name="joinDate" [options]="myDatePickerOptions" [(ngModel)]="addEmp.joinDate"
+                                #joinDate="ngModel" required></my-date-picker>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label">Company</label>
+                <select class="select form-control" [(ngModel)]="addEmp.company" name="company" #company="ngModel">
+                  <option value="Global Technologies">Global Technologies</option>
+                  <option value="Delta Infotech">Delta Infotech</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label">Designation<span class="text-danger m-l-5">*</span></label>
+                <select class="select form-control" [(ngModel)]="addEmp.designation" name="designation"
+                        #designation="ngModel" required>
+                  <option value="Web Developer">Web Developer</option>
+                  <option value="Web Designer">Web Designer</option>
+                  <option value="SEO Analyst">SEO Analyst</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group" [class.has-error]="phone.invalid && phone.touched"
+                   [class.has-success]="phone.valid">
+                <label class="control-label">Phone<span class="text-danger m-l-5">*</span></label>
+                <input class="form-control" type="text" [(ngModel)]="addEmp.phone" name="phone" #phone="ngModel"
+                       pattern="(\d{10}|\d{12})" required>
+                <span class="help-block" *ngIf="phone.errors && phone.touched">
+                  Phone Number is invalid
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive m-t-15">
+            <table class="table table-striped custom-table">
+              <thead>
+              <tr>
+                <th>Module Permission</th>
+                <th class="text-center">Read</th>
+                <th class="text-center">Write</th>
+                <th class="text-center">Create</th>
+                <th class="text-center">Delete</th>
+                <th class="text-center">Import</th>
+                <th class="text-center">Export</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of modules">
+                <td>{{item.module}}</td>
+                <td class="text-center">
+                  <input [attr.checked]="item.read ? 'checked' : null" type="checkbox">
+                </td>
+                <td class="text-center">
+                  <input [attr.checked]="item.write ? 'checked' : null" type="checkbox">
+                </td>
+                <td class="text-center">
+                  <input [attr.checked]="item.create ? 'checked' : null" type="checkbox">
+                </td>
+                <td class="text-center">
+                  <input [attr.checked]="item.delete ? 'checked' : null" type="checkbox">
+                </td>
+                <td class="text-center">
+                  <input [attr.checked]="item.import ? 'checked' : null" type="checkbox">
+                </td>
+                <td class="text-center">
+                  <input [attr.checked]="item.export ? 'checked' : null" type="checkbox">
+                </td>
+              </tr>
+
+              </tbody>
+            </table>
+          </div>
+          <div class="m-t-20 text-center">
+            <div *ngIf="addEmployeeValidation" class="alert alert-info m-t-10">
+              <strong>Warning!</strong> Must Fill all Mandatory Fields.
+            </div>
+            <button class="btn btn-primary">Create UserPond</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 <div id="add_employee" class="modal custom-modal fade" role="dialog">
   <div class="modal-dialog">
     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -295,7 +449,6 @@
     </div>
   </div>
 </div>
-
 <div id="delete_employee" class="modal custom-modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content modal-md">

@@ -64,7 +64,7 @@ enableProdMode();
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  {path: 'dashboard', component: DashboardComponent},
   {
     path: 'users', component: EmployeeMainComponent, children: [
       {path: '', redirectTo: 'all-users', pathMatch: 'full'},
@@ -106,7 +106,7 @@ const routes: Routes = [
   {path: 'pages/forgot-password', component: ForgetPageComponent},
   {path: 'profile', component: ProfilePageComponent},
   {path: 'profile/edit', component: ProfileEditComponent},
-  // {path: '**', redirectTo: 'pages/login'}
+  {path: '**', redirectTo: 'pages/login'}
 ];
 
 @NgModule({
