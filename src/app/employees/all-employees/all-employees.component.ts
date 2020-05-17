@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {IMyDpOptions} from 'mydatepicker';
-import {Router} from '@angular/router';
-import {AppService} from 'src/app/app.service';
-import {DataService} from '../../services/data.service';
+import { Component, OnInit } from '@angular/core';
+import { IMyDpOptions } from 'mydatepicker';
+import { Router } from '@angular/router';
+import { AppService } from 'src/app/app.service';
+import { DataService } from '../../services/data.service';
+import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 declare const $: any;
 
@@ -12,20 +13,6 @@ declare const $: any;
   styleUrls: ['./all-employees.component.css']
 })
 export class AllEmployeesComponent implements OnInit {
-
-  public isLoading = true;
-  public loadingMsg = '';
-  public errorMsg = '';
-
-  constructor(
-    private appService: AppService,
-    private dataService: DataService,
-    private router: Router
-    ) {
-    this.rows = appService.employees;
-    this.srch = [...this.rows];
-    this.modules = appService.employee_modules;
-  }
 
   public myDatePickerOptions: IMyDpOptions = {
     todayBtnTxt: 'Today',
@@ -37,19 +24,20 @@ export class AllEmployeesComponent implements OnInit {
   };
 
   rows = [];
+  productionData: any = [];
   public updateEmp = [];
   public createEmp: any = {};
   public srch = [];
   addEmployeeValidation = false;
 
   public columns: Array<any> = [
-    {title: 'Name', name: 'name', sort: true},
-    {title: 'Employee ID', name: 'employeeID', sort: true},
-    {title: 'Email', name: 'email', sort: true},
-    {title: 'Mobile', name: 'mobile', sort: true},
-    {title: 'Join Date', name: 'joinDate', sort: true},
-    {title: 'Role', name: 'role', sort: true},
-    {title: 'Action', name: 'action', sort: true}
+    { title: 'Name', name: 'name', sort: true },
+    { title: 'Employee ID', name: 'employeeID', sort: true },
+    { title: 'Email', name: 'email', sort: true },
+    { title: 'Mobile', name: 'mobile', sort: true },
+    { title: 'Join Date', name: 'joinDate', sort: true },
+    { title: 'Role', name: 'role', sort: true },
+    { title: 'Action', name: 'action', sort: true }
   ];
 
   public allEmployees = true;
@@ -59,10 +47,58 @@ export class AllEmployeesComponent implements OnInit {
   public addEmp: any = {};
 
   public date: Date = new Date();
-  public model: any = {date: {year: this.date.getFullYear(), month: this.date.getMonth() + 1, day: this.date.getDate()}};
+  public model: any = { date: { year: this.date.getFullYear(), month: this.date.getMonth() + 1, day: this.date.getDate() } };
 
   public empUpt = {};
   public vals = [];
+
+  public myDatePickerOptionsT: IMyDpOptions = {
+    todayBtnTxt: 'Today',
+    dateFormat: 'yyyy-mm-dd',
+    firstDayOfWeek: 'su',
+    sunHighlight: true,
+    inline: false,
+    height: '48px'
+  };
+  public myDatePickerOptionsF: IMyDpOptions = {
+    todayBtnTxt: 'Today',
+    dateFormat: 'yyyy-mm-dd',
+    firstDayOfWeek: 'su',
+    sunHighlight: true,
+    inline: false,
+    height: '48px'
+  };
+  public myDatePickerOptions1: IMyDpOptions = {
+    todayBtnTxt: 'Today',
+    dateFormat: 'yyyy-mm-dd',
+    firstDayOfWeek: 'su',
+    sunHighlight: true,
+    inline: false,
+    height: '38px'
+  };
+  ecoData: any = {};
+  isHidden = true;
+  ecoDataForm: FormGroup;
+  dateFrom: '';
+  dateTo = '';
+  totalUsers: any;
+  ecoIndicator: any = [];
+
+  public isLoading = true;
+  public loadingMsg = '';
+  public errorMsg = '';
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private appService: AppService,
+    private dataService: DataService,
+    private router: Router
+  ) {
+    this.rows = appService.employees;
+    this.ecoIndicator = appService.ecoIndicators;
+    this.srch = [...this.rows];
+    this.modules = appService.employee_modules;
+  }
 
   ngOnInit() {
 
@@ -88,7 +124,7 @@ export class AllEmployeesComponent implements OnInit {
       userName: '',
       password: '',
       cPassword: '',
-      joinDate: {formatted: ''}
+      joinDate: { formatted: '' }
     };
     $('#add_employee').modal('show');
   }
@@ -107,7 +143,7 @@ export class AllEmployeesComponent implements OnInit {
   }
 
   onEdit(item) {
-    this.router.navigate(['users/all-users/edit'], {queryParams: {'id': item.employeeID}});
+    this.router.navigate(['users/all-users/edit'], { queryParams: { 'id': item.employeeID } });
   }
 
   onDelete(id) {
@@ -174,17 +210,43 @@ export class AllEmployeesComponent implements OnInit {
   getAllUsers() {
     this.dataService.getAllRegisterUser()
       .subscribe(res => {
-          this.rows = res;
-          this.isLoading = false;
-          this.loadingMsg = 'data loading ...';
-          console.log('AllUsersComponent: load all users =>' + this.rows);
-        },
+        this.rows = res;
+        this.totalUsers = this.rows.length;
+        localStorage.setItem('totalUsers', this.totalUsers);
+        this.isLoading = false;
+        this.loadingMsg = 'data loading ...';
+        console.log(`AllUsersComponent: total users: ${this.rows} => ${this.totalUsers} `);
+      },
         error => {
           this.isLoading = false;
           console.log('AllUsersComponent: error all users: ', error);
         });
   }
 
+  checkProductionData(userId: string) {
+    console.log(`userId: ${userId}`);
+    this.dataService.postUserPondProductionData(userId)
+      .subscribe(cpdRes => {
+        this.productionData = cpdRes;
+        console.log(`user productionData: ${this.productionData}`);
+      },
+        error => {
+          console.error(`error loading user producationData: ${error}`);
+        });
+  }
+
+  checkEconomicIndicator(userId: string) {
+    console.log(`ecoIndicator userId: ${userId}`);
+    this.dataService.calculateEconomicIndicator(userId)
+      .subscribe(res => {
+        // this.ecoIndicator = res;
+        console.log('ctr: user economicIndicators', this.ecoIndicator);
+        $('#ecoIndicator').modal('show');
+        // this.router.navigateByUrl('/clients/profile/details', { state: this.rows });
+      }, error => {
+        console.log('ctr: error economic indicator', error);
+      });
+  }
   addUserPond(f: any) {
     console.log(`AllUsersComponent: add user pond ==> ${f}`);
     $('#add_userpond').modal('show');

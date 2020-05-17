@@ -5,6 +5,18 @@ import {Injectable} from '@angular/core';
 })
 export class AppService {
 
+  public ecoIndicators = [
+    {
+      'id': 1,
+      'userId': 'aed9f150-a8e2-4d59-9f3d-3a2f489116c3',
+      'noOfWorkers': '2',
+      'moneyReceived': 200,
+      'moneySpent': 250,
+      'numberOfPonds': '2',
+      'createdAt': '2020-02-24T20:20:19.000Z',
+      'updatedAt': '2020-02-24T20:20:19.000Z'
+  }
+  ];
   public recordings = [
     {
       'id': 1,

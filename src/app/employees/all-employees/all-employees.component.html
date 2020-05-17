@@ -9,9 +9,9 @@
       </a>
       <div class="view-icons">
         <a class="grid-view btn btn-link" [ngClass]="{active:!allEmployees}" (click)="allEmployees=false"><i
-          class="fa fa-th"></i></a>
+            class="fa fa-th"></i></a>
         <a class="list-view btn btn-link" [ngClass]="{active:allEmployees}" (click)="allEmployees=true"><i
-          class="fa fa-bars"></i></a>
+            class="fa fa-bars"></i></a>
       </div>
     </div>
   </div>
@@ -19,13 +19,13 @@
     <div class="col-sm-3 col-xs-6">
       <div class="form-group form-focus">
         <label class="control-label">User Name</label>
-        <input type="text" class="form-control floating" (input)="searchID($event.target.value)"/>
+        <input type="text" class="form-control floating" (input)="searchID($event.target.value)" />
       </div>
     </div>
     <div class="col-sm-3 col-xs-6">
       <div class="form-group form-focus">
         <label class="control-label">Phone Number</label>
-        <input type="text" class="form-control floating" (input)="searchName($event.target.value)"/>
+        <input type="text" class="form-control floating" (input)="searchName($event.target.value)" />
       </div>
     </div>
     <div class="col-sm-3 col-xs-6">
@@ -42,7 +42,7 @@
       <a href="javascript:" class="btn btn-success btn-block"> Search </a>
     </div>
   </div>
-  <blockquote *ngIf="isLoading" >
+  <blockquote *ngIf="isLoading">
     <span>{{loadingMsg}}</span>
   </blockquote>
   <div class="row" *ngIf="allEmployees">
@@ -50,70 +50,75 @@
       <div class="table-responsive table-responsive-inherit">
         <table class="table table-striped custom-table" [mfData]="rows" #mf="mfDataTable" [mfRowsOnPage]="10">
           <thead>
-          <tr>
-            <th style="width: 10%">
-              <mfDefaultSorter by="">Index</mfDefaultSorter>
-            </th>
-            <th style="width: 100%">
-              <mfDefaultSorter by="userId">UserId</mfDefaultSorter>
-            </th>
-            <th style="width: 20%">
-              <mfDefaultSorter by="fullName">FullName</mfDefaultSorter>
-            </th>
-            <th style="width: 5%">
-              <mfDefaultSorter by="email">Email</mfDefaultSorter>
-            </th>
-            <th style="width: 5%">
-              <mfDefaultSorter by="phoneNumber">MobilePhone</mfDefaultSorter>
-            </th>
-            <th style="width: 100%">
-              <mfDefaultSorter by="farmName">FarmName</mfDefaultSorter>
-            </th>
-            <th style="width: 10%" class="text-center">
-              <mfDefaultSorter by="location">Location</mfDefaultSorter>
-            </th>
-            <th style="width: 10%" class="text-center">
-              <mfDefaultSorter by="aboutFarm">AboutFarm</mfDefaultSorter>
-            </th>
-            <th style="width: 10%" class="text-center">
-              <mfDefaultSorter by="noOfPonds">noOfPonds</mfDefaultSorter>
-            </th>
-            <th style="width: 10%" class="text-center">
-              <mfDefaultSorter by="noOfHatcheries">noOfHatcheries</mfDefaultSorter>
-            </th>
-            <th style="width: 10%" class="text-center">
-              <mfDefaultSorter by="noOfCages">noOfCages</mfDefaultSorter>
-            </th>
+            <tr>
+              <th style="width: 10%">
+                <mfDefaultSorter by="">Index</mfDefaultSorter>
+              </th>
+              <th style="width: 100%">
+                <mfDefaultSorter by="userId">UserId</mfDefaultSorter>
+              </th>
+              <th style="width: 20%">
+                <mfDefaultSorter by="fullName">FullName</mfDefaultSorter>
+              </th>
+              <th style="width: 5%">
+                <mfDefaultSorter by="email">Email</mfDefaultSorter>
+              </th>
+              <th style="width: 5%">
+                <mfDefaultSorter by="phoneNumber">MobilePhone</mfDefaultSorter>
+              </th>
+              <th style="width: 100%">
+                <mfDefaultSorter by="farmName">FarmName</mfDefaultSorter>
+              </th>
+              <th style="width: 10%" class="text-center">
+                <mfDefaultSorter by="location">Location</mfDefaultSorter>
+              </th>
+              <th style="width: 10%" class="text-center">
+                <mfDefaultSorter by="aboutFarm">AboutFarm</mfDefaultSorter>
+              </th>
+              <th style="width: 10%" class="text-center">
+                <mfDefaultSorter by="noOfPonds">noOfPonds</mfDefaultSorter>
+              </th>
+              <th style="width: 10%" class="text-center">
+                <mfDefaultSorter by="noOfHatcheries">noOfHatcheries</mfDefaultSorter>
+              </th>
+              <th style="width: 10%" class="text-center">
+                <mfDefaultSorter by="noOfCages">noOfCages</mfDefaultSorter>
+              </th>
 
-            <th style="width: 20%">
-              <mfDefaultSorter by="joinDate">Actions</mfDefaultSorter>
-            </th>
-          </tr>
+              <th style="width: 20%">
+                <mfDefaultSorter by="joinDate">Actions</mfDefaultSorter>
+              </th>
+            </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let item of mf.data, let i = index">
-            <td><a href="javascript:">#0{{i + 1}}</a></td>
-            <td>{{item.userId |  truncate:[20, '...']}}</td>
-            <td>{{item.fullName}}</td>
-            <td>{{item.email}}</td>
-            <td>{{item.phoneNumber}}</td>
-            <td>{{item.farmName}}</td>
-            <td>{{item.location}}</td>
-            <td>{{item.aboutFarm}}</td>
-            <td>{{item.noOfPonds}}</td>
-            <td>{{item.noOfHatcheries}}</td>
-            <td>{{item.noOfCages}}</td>
-            <td class="container text-center">
-              <span class="label label-primary">Economic Indicator</span>
-            </td>
-          </tr>
+            <tr *ngFor="let item of mf.data, let i = index">
+              <td><a href="javascript:">#0{{i + 1}}</a></td>
+              <td>{{item.userId |  truncate:[20, '...']}}</td>
+              <td>{{item.fullName}}</td>
+              <td>{{item.email}}</td>
+              <td>{{item.phoneNumber}}</td>
+              <td>{{item.farmName}}</td>
+              <td>{{item.location}}</td>
+              <td>{{item.aboutFarm}}</td>
+              <td>{{item.noOfPonds}}</td>
+              <td>{{item.noOfHatcheries}}</td>
+              <td>{{item.noOfCages}}</td>
+              <td class="container text-center">
+                <a (click)="checkEconomicIndicator(item.userId)">
+                  <span class="label label-primary">
+                    Economic Indicator
+                  </span>
+                </a><br>
+                <!-- <a (click)="checkProductionData(item.userId)"><span class="label label-info-border">Production Data</span></a> -->
+              </td>
+            </tr>
           </tbody>
           <tfoot>
-          <tr>
-            <td colspan="12">
-              <mfBootstrapPaginator></mfBootstrapPaginator>
-            </td>
-          </tr>
+            <tr>
+              <td colspan="12">
+                <mfBootstrapPaginator></mfBootstrapPaginator>
+              </td>
+            </tr>
           </tfoot>
         </table>
       </div>
@@ -127,17 +132,79 @@
         </div>
         <div class="dropdown profile-action">
           <a href="javascript:" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
-            class="fa fa-ellipsis-v"></i></a>
+              class="fa fa-ellipsis-v"></i></a>
           <ul class="dropdown-menu pull-right">
             <li><a href="javascript:" data-toggle="modal" data-target="#edit_employee" (click)="onEdit(item)"><i
-              class="fa fa-pencil m-r-5"></i> Edit</a></li>
+                  class="fa fa-pencil m-r-5"></i> Edit</a></li>
             <li><a (click)="onDelete(item.id)"><i class="fa fa-trash-o m-r-5"></i>
-              Delete</a></li>
+                Delete</a></li>
           </ul>
         </div>
         <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="javascript:">{{item.firstName}} {{item.lastName}}</a>
         </h4>
         <div class="small text-muted">{{item.designation}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="ecoIndicator" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h4 class="modal-title">Check Economic Indicators</h4>
+      </div>
+      <div class="modal-body">
+        <!-- <form class="m-b-30" #addForm="ngForm" (ngSubmit)="addSubmit(addForm)" novalidate>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label">From Date <span class="text-danger m-l-5">*</span></label>
+                <my-date-picker name="joinDate" [options]="myDatePickerOptions" [(ngModel)]="addEmp.joinDate"
+                  #joinDate="ngModel" required></my-date-picker>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label">To Date <span class="text-danger m-l-5">*</span></label>
+                <my-date-picker name="joinDate" [options]="myDatePickerOptions" [(ngModel)]="addEmp.joinDate"
+                  #joinDate="ngModel" required></my-date-picker>
+              </div>
+            </div>
+          </div>
+        </form> -->
+        <div class="table-responsive m-t-15">
+          <table class="table table-striped custom-table">
+            <thead>
+              <tr>
+                <th>Index</th>
+                <th class="text-center">userId</th>
+                <th class="text-center">noOfWorkers</th>
+                <th class="text-center">moneyReceived</th>
+                <th class="text-center">moneySpent</th>
+                <th class="text-center">numberOfPonds</th>
+                <th class="text-center">createdAt</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of ecoIndicator">
+                <td>#{{item.id}}</td>
+                <td>
+                  <h2><a href="javascript:">{{item.userId}}</a></h2>
+                </td>
+                <td>{{item.noOfWorkers}}</td>
+                <td>{{item.moneyReceived}}</td>
+                <td>{{item.moneySpent}}</td>
+                <td>{{item.numberOfPonds}}</td>
+                <td>{{item.createdAt}}</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -157,29 +224,29 @@
               <div class="form-group">
                 <label class="control-label">First Name <span class="text-danger m-l-5">*</span></label>
                 <input class="form-control" type="text" [(ngModel)]="addEmp.firstName" name="firstName"
-                       #firstName="ngModel" required>
+                  #firstName="ngModel" required>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Last Name</label>
                 <input class="form-control" type="text" [(ngModel)]="addEmp.lastName" name="lastName"
-                       #lastName="ngModel">
+                  #lastName="ngModel">
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Username <span class="text-danger m-l-5">*</span></label>
                 <input class="form-control" type="text" [(ngModel)]="addEmp.userName" name="userName"
-                       #userName="ngModel" required>
+                  #userName="ngModel" required>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group" [class.has-error]="email.invalid && email.touched"
-                   [class.has-success]="email.valid">
+                [class.has-success]="email.valid">
                 <label class="control-label">Email <span class="text-danger m-l-5">*</span></label>
                 <input class="form-control" type="email" [(ngModel)]="addEmp.email" name="email" #email="ngModel"
-                       pattern="([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})" required>
+                  pattern="([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})" required>
                 <span class="help-block" *ngIf="email.errors && email.touched">
                   Email is invalid
                 </span>
@@ -189,28 +256,28 @@
               <div class="form-group">
                 <label class="control-label">Password<span class="text-danger m-l-5">*</span></label>
                 <input class="form-control" type="password" [(ngModel)]="addEmp.password" name="password"
-                       #password="ngModel" required>
+                  #password="ngModel" required>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Confirm Password<span class="text-danger m-l-5">*</span></label>
                 <input class="form-control" type="password" [(ngModel)]="addEmp.cPassword" name="cPassword"
-                       #cPassword="ngModel" required>
+                  #cPassword="ngModel" required>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Employee ID <span class="text-danger m-l-5">*</span></label>
                 <input type="text" class="form-control" readonly [(ngModel)]="addEmp.employeeID" name="employeeID"
-                       #employeeID="ngModel" required>
+                  #employeeID="ngModel" required>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Joining Date <span class="text-danger m-l-5">*</span></label>
                 <my-date-picker name="joinDate" [options]="myDatePickerOptions" [(ngModel)]="addEmp.joinDate"
-                                #joinDate="ngModel" required></my-date-picker>
+                  #joinDate="ngModel" required></my-date-picker>
               </div>
             </div>
 
@@ -227,7 +294,7 @@
               <div class="form-group">
                 <label class="control-label">Designation<span class="text-danger m-l-5">*</span></label>
                 <select class="select form-control" [(ngModel)]="addEmp.designation" name="designation"
-                        #designation="ngModel" required>
+                  #designation="ngModel" required>
                   <option value="Web Developer">Web Developer</option>
                   <option value="Web Designer">Web Designer</option>
                   <option value="SEO Analyst">SEO Analyst</option>
@@ -236,10 +303,10 @@
             </div>
             <div class="col-sm-6">
               <div class="form-group" [class.has-error]="phone.invalid && phone.touched"
-                   [class.has-success]="phone.valid">
+                [class.has-success]="phone.valid">
                 <label class="control-label">Phone<span class="text-danger m-l-5">*</span></label>
                 <input class="form-control" type="text" [(ngModel)]="addEmp.phone" name="phone" #phone="ngModel"
-                       pattern="(\d{10}|\d{12})" required>
+                  pattern="(\d{10}|\d{12})" required>
                 <span class="help-block" *ngIf="phone.errors && phone.touched">
                   Phone Number is invalid
                 </span>
@@ -249,38 +316,38 @@
           <div class="table-responsive m-t-15">
             <table class="table table-striped custom-table">
               <thead>
-              <tr>
-                <th>Module Permission</th>
-                <th class="text-center">Read</th>
-                <th class="text-center">Write</th>
-                <th class="text-center">Create</th>
-                <th class="text-center">Delete</th>
-                <th class="text-center">Import</th>
-                <th class="text-center">Export</th>
-              </tr>
+                <tr>
+                  <th>Module Permission</th>
+                  <th class="text-center">Read</th>
+                  <th class="text-center">Write</th>
+                  <th class="text-center">Create</th>
+                  <th class="text-center">Delete</th>
+                  <th class="text-center">Import</th>
+                  <th class="text-center">Export</th>
+                </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let item of modules">
-                <td>{{item.module}}</td>
-                <td class="text-center">
-                  <input [attr.checked]="item.read ? 'checked' : null" type="checkbox">
-                </td>
-                <td class="text-center">
-                  <input [attr.checked]="item.write ? 'checked' : null" type="checkbox">
-                </td>
-                <td class="text-center">
-                  <input [attr.checked]="item.create ? 'checked' : null" type="checkbox">
-                </td>
-                <td class="text-center">
-                  <input [attr.checked]="item.delete ? 'checked' : null" type="checkbox">
-                </td>
-                <td class="text-center">
-                  <input [attr.checked]="item.import ? 'checked' : null" type="checkbox">
-                </td>
-                <td class="text-center">
-                  <input [attr.checked]="item.export ? 'checked' : null" type="checkbox">
-                </td>
-              </tr>
+                <tr *ngFor="let item of modules">
+                  <td>{{item.module}}</td>
+                  <td class="text-center">
+                    <input [attr.checked]="item.read ? 'checked' : null" type="checkbox">
+                  </td>
+                  <td class="text-center">
+                    <input [attr.checked]="item.write ? 'checked' : null" type="checkbox">
+                  </td>
+                  <td class="text-center">
+                    <input [attr.checked]="item.create ? 'checked' : null" type="checkbox">
+                  </td>
+                  <td class="text-center">
+                    <input [attr.checked]="item.delete ? 'checked' : null" type="checkbox">
+                  </td>
+                  <td class="text-center">
+                    <input [attr.checked]="item.import ? 'checked' : null" type="checkbox">
+                  </td>
+                  <td class="text-center">
+                    <input [attr.checked]="item.export ? 'checked' : null" type="checkbox">
+                  </td>
+                </tr>
 
               </tbody>
             </table>
@@ -310,29 +377,29 @@
               <div class="form-group">
                 <label class="control-label">First Name <span class="text-danger m-l-5">*</span></label>
                 <input class="form-control" type="text" [(ngModel)]="addEmp.firstName" name="firstName"
-                       #firstName="ngModel" required>
+                  #firstName="ngModel" required>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Last Name</label>
                 <input class="form-control" type="text" [(ngModel)]="addEmp.lastName" name="lastName"
-                       #lastName="ngModel">
+                  #lastName="ngModel">
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Username <span class="text-danger m-l-5">*</span></label>
                 <input class="form-control" type="text" [(ngModel)]="addEmp.userName" name="userName"
-                       #userName="ngModel" required>
+                  #userName="ngModel" required>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group" [class.has-error]="email.invalid && email.touched"
-                   [class.has-success]="email.valid">
+                [class.has-success]="email.valid">
                 <label class="control-label">Email <span class="text-danger m-l-5">*</span></label>
                 <input class="form-control" type="email" [(ngModel)]="addEmp.email" name="email" #email="ngModel"
-                       pattern="([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})" required>
+                  pattern="([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})" required>
                 <span class="help-block" *ngIf="email.errors && email.touched">
                   Email is invalid
                 </span>
@@ -342,28 +409,28 @@
               <div class="form-group">
                 <label class="control-label">Password<span class="text-danger m-l-5">*</span></label>
                 <input class="form-control" type="password" [(ngModel)]="addEmp.password" name="password"
-                       #password="ngModel" required>
+                  #password="ngModel" required>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Confirm Password<span class="text-danger m-l-5">*</span></label>
                 <input class="form-control" type="password" [(ngModel)]="addEmp.cPassword" name="cPassword"
-                       #cPassword="ngModel" required>
+                  #cPassword="ngModel" required>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Employee ID <span class="text-danger m-l-5">*</span></label>
                 <input type="text" class="form-control" readonly [(ngModel)]="addEmp.employeeID" name="employeeID"
-                       #employeeID="ngModel" required>
+                  #employeeID="ngModel" required>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="control-label">Joining Date <span class="text-danger m-l-5">*</span></label>
                 <my-date-picker name="joinDate" [options]="myDatePickerOptions" [(ngModel)]="addEmp.joinDate"
-                                #joinDate="ngModel" required></my-date-picker>
+                  #joinDate="ngModel" required></my-date-picker>
               </div>
             </div>
 
@@ -380,7 +447,7 @@
               <div class="form-group">
                 <label class="control-label">Designation<span class="text-danger m-l-5">*</span></label>
                 <select class="select form-control" [(ngModel)]="addEmp.designation" name="designation"
-                        #designation="ngModel" required>
+                  #designation="ngModel" required>
                   <option value="Web Developer">Web Developer</option>
                   <option value="Web Designer">Web Designer</option>
                   <option value="SEO Analyst">SEO Analyst</option>
@@ -389,10 +456,10 @@
             </div>
             <div class="col-sm-6">
               <div class="form-group" [class.has-error]="phone.invalid && phone.touched"
-                   [class.has-success]="phone.valid">
+                [class.has-success]="phone.valid">
                 <label class="control-label">Phone<span class="text-danger m-l-5">*</span></label>
                 <input class="form-control" type="text" [(ngModel)]="addEmp.phone" name="phone" #phone="ngModel"
-                       pattern="(\d{10}|\d{12})" required>
+                  pattern="(\d{10}|\d{12})" required>
                 <span class="help-block" *ngIf="phone.errors && phone.touched">
                   Phone Number is invalid
                 </span>
@@ -402,38 +469,38 @@
           <div class="table-responsive m-t-15">
             <table class="table table-striped custom-table">
               <thead>
-              <tr>
-                <th>Module Permission</th>
-                <th class="text-center">Read</th>
-                <th class="text-center">Write</th>
-                <th class="text-center">Create</th>
-                <th class="text-center">Delete</th>
-                <th class="text-center">Import</th>
-                <th class="text-center">Export</th>
-              </tr>
+                <tr>
+                  <th>Module Permission</th>
+                  <th class="text-center">Read</th>
+                  <th class="text-center">Write</th>
+                  <th class="text-center">Create</th>
+                  <th class="text-center">Delete</th>
+                  <th class="text-center">Import</th>
+                  <th class="text-center">Export</th>
+                </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let item of modules">
-                <td>{{item.module}}</td>
-                <td class="text-center">
-                  <input [attr.checked]="item.read ? 'checked' : null" type="checkbox">
-                </td>
-                <td class="text-center">
-                  <input [attr.checked]="item.write ? 'checked' : null" type="checkbox">
-                </td>
-                <td class="text-center">
-                  <input [attr.checked]="item.create ? 'checked' : null" type="checkbox">
-                </td>
-                <td class="text-center">
-                  <input [attr.checked]="item.delete ? 'checked' : null" type="checkbox">
-                </td>
-                <td class="text-center">
-                  <input [attr.checked]="item.import ? 'checked' : null" type="checkbox">
-                </td>
-                <td class="text-center">
-                  <input [attr.checked]="item.export ? 'checked' : null" type="checkbox">
-                </td>
-              </tr>
+                <tr *ngFor="let item of modules">
+                  <td>{{item.module}}</td>
+                  <td class="text-center">
+                    <input [attr.checked]="item.read ? 'checked' : null" type="checkbox">
+                  </td>
+                  <td class="text-center">
+                    <input [attr.checked]="item.write ? 'checked' : null" type="checkbox">
+                  </td>
+                  <td class="text-center">
+                    <input [attr.checked]="item.create ? 'checked' : null" type="checkbox">
+                  </td>
+                  <td class="text-center">
+                    <input [attr.checked]="item.delete ? 'checked' : null" type="checkbox">
+                  </td>
+                  <td class="text-center">
+                    <input [attr.checked]="item.import ? 'checked' : null" type="checkbox">
+                  </td>
+                  <td class="text-center">
+                    <input [attr.checked]="item.export ? 'checked' : null" type="checkbox">
+                  </td>
+                </tr>
 
               </tbody>
             </table>
@@ -466,4 +533,3 @@
     </div>
   </div>
 </div>
-

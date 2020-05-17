@@ -3,6 +3,8 @@ import {IMyDpOptions} from 'mydatepicker';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from 'src/app/app.service';
 import {DataService} from '../../services/data.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { formatDate } from '@angular/common';
 
 declare const $: any;
 
@@ -21,7 +23,6 @@ export class LeavesComponent implements OnInit {
     inline: false,
     height: '48px'
   };
-
   public myDatePickerOptionsF: IMyDpOptions = {
     todayBtnTxt: 'Today',
     dateFormat: 'dd-mm-yyyy',
@@ -30,8 +31,15 @@ export class LeavesComponent implements OnInit {
     inline: false,
     height: '48px'
   };
-
   public myDatePickerOptions1: IMyDpOptions = {
+    todayBtnTxt: 'Today',
+    dateFormat: 'yyyy-mm-dd',
+    firstDayOfWeek: 'su',
+    sunHighlight: true,
+    inline: false,
+    height: '38px'
+  };
+  public myDatePickerOptions: IMyDpOptions = {
     todayBtnTxt: 'Today',
     dateFormat: 'dd-mm-yyyy',
     firstDayOfWeek: 'su',
@@ -40,7 +48,9 @@ export class LeavesComponent implements OnInit {
     height: '38px'
   };
 
-  rows = [];
+
+  rows: any = [];
+  fishHealthRecord: any = [];
 
   public srch = [];
   public addL: any = {};
@@ -50,7 +60,15 @@ export class LeavesComponent implements OnInit {
   public errorMsg = '';
   public allLeaves = true;
 
+  fishHealthForm: FormGroup;
+  productionDataForm: FormGroup;
+  dateFrom: '';
+  dateTo = '';
+
+  isFishPondHealth = false;
+  public newPondId: any;
   constructor(
+    private formBuilder: FormBuilder,
     private appService: AppService,
     private router: Router,
     private route: ActivatedRoute,
@@ -62,6 +80,12 @@ export class LeavesComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.fishHealthForm = this.formBuilder.group({
+      dateFrom: [null],
+      dateTo: [null],
+      userId: [null]
+    });
 
     $('.floating').on('focus blur', function (e) {
       $(this).parents('.form-focus').toggleClass('focused', (e.type === 'focus' || this.value.length > 0));
@@ -76,9 +100,87 @@ export class LeavesComponent implements OnInit {
     this.getAllUserPonds();
   }
 
+  getAllUserPonds() {
+    this.dataService.getAllUserPonds()
+      .subscribe(res => {
+        this.rows = res;
+        this.isLoading = false;
+        this.loadingMsg = 'data loading ...';
+        console.log('UserPondsComponent: all user ponds responds >>>', this.rows);
+      }, err => {
+        console.log('UserPondsComponent: error getting all user ponds', err);
+      });
+  }
+
+  checkEconomicIndicator(f: any) {
+    console.log('economic indicator items', f);
+    console.log('economic indicator items', f.dateFrom.formatted);
+    console.log('economic indicator items', f.dateTo.formatted);
+
+    this.dataService.calculateEconomicIndicator(f)
+      .subscribe( res => {
+        this.rows = res;
+        console.log('ctr: economic indicator', this.rows);
+        $('#ecoIdicator').modal('hide');
+        // this.router.navigateByUrl('/clients/profile/details', { state: this.rows });
+      }, error => {
+        console.log('ctr: error economic indicator', error);
+      });
+  }
+
+  getPondId(pondId: string) {
+    console.log(`fishhealth pondId: ${pondId}`);
+    this.newPondId = pondId;
+    $('#fishpondHealthForm').modal('show');
+
+  }
+
+  calcFishPondHealth(f: any) {
+    console.log('FishPond Health items >>>', f);
+    console.log('FishPond Health', f.dateFrom.formatted);
+    console.log('FishPond Health', f.dateTo.formatted);
+    f.pondId = this.newPondId;
+    this.dataService.postUserFishPondHealth(f)
+      .subscribe( res => {
+        // this.rows.pondId = this.newPondId;
+        this.fishHealthRecord = res;
+        console.log('ctr: FishHealth Records =>', this.fishHealthRecord);
+        console.log('hide fishHealthForm ...');
+        $('#fishpondHealthForm').modal('hide');
+        console.log('show fishHealthRecords ...');
+        $('#fishHealthRecords').modal('show');
+        this.isFishPondHealth = true;
+        // this.router.navigateByUrl('/clients/profile/details', { state: this.rows });
+      }, error => {
+        this.isFishPondHealth = false;
+        console.log('ctr: error calc fishpond health: ', error);
+      });
+  }
+  calcProductionData(f: any) {
+    console.log('FishPond Production data', f);
+    console.log('FishPond Production data', f.dateFrom.formatted);
+    console.log('FishPond Production data', f.dateTo.formatted);
+
+    this.dataService.postUserPondProductionData(f)
+      .subscribe( res => {
+        this.rows = res;
+        console.log('ctr: FishPond production data', this.rows);
+        $('#fishpond_production').modal('hide');
+        this.isFishPondHealth = true;
+        // this.router.navigateByUrl('/clients/profile/details', { state: this.rows });
+      }, error => {
+        this.isFishPondHealth = false;
+        console.log('ctr: error calc fishpond production data: ', error);
+      });
+  }
+
+
   addReset() {
     this.addL = {'days': 2, 'status': 'New'};
     $('#add_leave').modal('show');
+  }
+  addSubmit(f) {
+
   }
 
   addLeave(f) {
@@ -161,7 +263,6 @@ export class LeavesComponent implements OnInit {
     this.rows.push(...temp);
     // console.log(this.rows);
   }
-
   searchStatus(val) {
     // console.log(val);
     // console.log(this.srch);
@@ -177,15 +278,4 @@ export class LeavesComponent implements OnInit {
     // console.log(this.rows);
   }
 
-  getAllUserPonds() {
-    this.dataService.getAllUserPonds()
-      .subscribe(res => {
-        this.rows = res;
-        this.isLoading = false;
-        this.loadingMsg = 'data loading ...';
-        console.log('UserPondsComponent: all user ponds responds >>>', this.rows);
-      }, err => {
-        console.log('UserPondsComponent: error getting all user ponds', err);
-      });
-  }
 }

@@ -45,8 +45,8 @@ export class DataService {
   }
 
   postUserFishPondHealth(pondData: any): Observable<any> {
-    console.log('srv: get user fish pond health: ', pondData);
-    return this.http.post<any>(`${this.f2DataServerUrl}/admin/pond/fishhealth`, pondData)
+    console.log('dataService: fishpond data: ', pondData);
+    return this.http.post<any>(`${this.f2DataServerUrl}/admin/reports/fishhealth`, pondData)
       .pipe(
         tap(_ => this.log(`srv: user fish pond health : ${_}`)),
         catchError(this.handleError('FishfarmTracker', []))
@@ -54,14 +54,14 @@ export class DataService {
   }
 
   postUserPondProductionData(pondData: any): Observable<any> {
-    return this.http.post<any>(this.f2DataServerUrl + '/admin/pond/productiondata', pondData)
+    return this.http.post<any>(this.f2DataServerUrl + '/admin/reports/productiondata', pondData)
       .pipe(
         tap(_ => this.log(`srv: user fish pond production data : ${_}`)),
         catchError(this.handleError('FishfarmTracker', []))
       );
   }
-  calculateEconomicIndicator(ecoData: any): Observable<any> {
-    return this.http.post<any>(this.f2DataServerUrl + '/admin/farm/economicindicators', ecoData)
+  calculateEconomicIndicator(ecoUserId: any): Observable<any> {
+    return this.http.post<any>(this.f2DataServerUrl + '/admin/reports/economicindicators', ecoUserId)
       .pipe(
         tap(_ => this.log(`ecoData srv: user economic indicator : ${_}`)),
         catchError(this.handleError('FishfarmTracker', []))

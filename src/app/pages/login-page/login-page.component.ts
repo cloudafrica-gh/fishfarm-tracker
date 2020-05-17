@@ -39,7 +39,7 @@ export class LoginPageComponent implements OnInit {
     this.authService.login(form)
       .subscribe(res => {
         this.isLoadingResults = true;
-        this.loadingMsg = 'dashboard loading ...'
+        this.loadingMsg = 'dashboard loading ...';
         console.log('login response >>>', res);
         if (res.token) {
           this.isLoadingResults = false;

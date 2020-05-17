@@ -47,13 +47,10 @@ export class AuthService {
         catchError(this.handleError('UserProfile', []))
       );
   }
-
   public logout() {
     localStorage.clear();
     // this.router.navigate (['/auth/login']);
   }
-
-
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

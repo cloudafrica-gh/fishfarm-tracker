@@ -6,7 +6,7 @@
         <div class="dash-widget clearfix card-box" routerLink="/users/all-users">
           <span class="dash-widget-icon"><i class="fa fa-user" aria-hidden="true"></i></span>
           <div class="dash-widget-info">
-            <h3>{{dash.clients}}</h3>
+            <h3>{{totalUsers}}</h3>
             <span>All Users</span>
           </div>
         </div>
@@ -87,7 +87,8 @@
                     <td>{{item.noOfCages}}</td>
 
                     <td class="container text-left">
-                      <span class="label label-primary">Economic Indicator</span>
+                      <a routerLink="/users/all-users"><span class="label label-primary">Economic Indicator</span></a><br>
+                      <!-- <a href=""><span class="label label-info-border">Production Data</span></a>                  -->
                     </td>
                   </tr>
                 </tbody>
@@ -140,8 +141,8 @@
                     <td>{{item.isSmallest}}</td>
 
                     <td class="container text-left">
-                      <a href=""><span class="label label-default">Fish Health</span></a><br>
-                      <a href=""><span class="label label-info-border">Production Data</span></a>
+                      <a routerLink="/users/all-ponds"><span class="label label-default">Fish Health</span></a><br>
+                      <a routerLink="/users/all-ponds"><span class="label label-info-border">Production Data</span></a>
                     </td>
                   </tr>
                 </tbody>

@@ -93,7 +93,7 @@
             <td>{{item.isLargest}}</td>
             <td>{{item.isSmallest}}</td>
             <td class="container text-left">
-              <a href=""><span class="label label-default">Fish Health</span></a><br>
+              <a (click)="getPondId(item.pondId)"><span class="label label-default">Fish Health</span></a><br>
               <a href=""><span class="label label-info-border">Production Data</span></a>
             </td>
           </tr>
@@ -111,6 +111,139 @@
     </div>
   </div>
 </div>
+
+<div id="fishpondHealthForm" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h4 class="modal-title">Check Fishpond Health</h4>
+      </div>
+      <div class="modal-body">
+        <form class="m-b-30"  [formGroup]="fishHealthForm" (ngSubmit)="calcFishPondHealth(fishHealthForm.value)" novalidate>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label">From Date <span class="text-danger m-l-5">*</span></label>
+                <my-date-picker [options]="myDatePickerOptions1" formControlName="dateFrom" name="dateFrom" required>
+                </my-date-picker>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label">To Date <span class="text-danger m-l-5">*</span></label>
+                <my-date-picker [options]="myDatePickerOptions1" formControlName="dateTo" name="dateTo" required>
+                </my-date-picker>
+              </div>
+            </div>
+          </div>
+          <div class="m-t-20">
+            <button class="btn btn-primary" type="submit">Calculate</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="fishHealthRecords" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h4 class="modal-title">Check FishHealth Records</h4>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive m-t-15">
+          <table class="table table-striped custom-table">
+            <thead>
+              <tr>
+                <th>Index</th>
+                <th class="text-center">pondId</th>
+                <th class="text-center">waterQuality</th>
+                <th class="text-center">mortality</th>
+                <th class="text-center">phLevel</th>
+                <th class="text-center">dissolvedOxygen</th>
+                <th class="text-center">temperature</th>
+                <th class="text-center">ammonia</th>
+                <th class="text-center">nitrite</th>
+                <th class="text-center">createdAt</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of fishHealthRecord">
+                <td>#{{item.id}}</td>
+                <td>
+                  <h2><a href="javascript:">{{item.pondId}}</a></h2>
+                </td>
+                <td>{{item.waterQuality}}</td>
+                <td>{{item.mortality}}</td>
+                <td>{{item.phLevel}}</td>
+                <td>{{item.dissolvedOxygen}}</td>
+                <td>{{item.temperature}}</td>
+                <td>{{item.ammonia}}</td>
+                <td>{{item.nitrite}}</td>
+                <td>{{item.createdAt}}</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div id="fishHealthRecords" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h4 class="modal-title">Check FishHealth Records</h4>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive m-t-15">
+          <table class="table table-striped custom-table">
+            <thead>
+              <tr>
+                <th>Index</th>
+                <th class="text-center">pondId</th>
+                <th class="text-center">waterQuality</th>
+                <th class="text-center">mortality</th>
+                <th class="text-center">phLevel</th>
+                <th class="text-center">dissolvedOxygen</th>
+                <th class="text-center">temperature</th>
+                <th class="text-center">ammonia</th>
+                <th class="text-center">nitrite</th>
+                <th class="text-center">createdAt</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of fishHealthRecord">
+                <td>#{{item.id}}</td>
+                <td>
+                  <h2><a href="javascript:">{{item.pondId}}</a></h2>
+                </td>
+                <td>{{item.waterQuality}}</td>
+                <td>{{item.mortality}}</td>
+                <td>{{item.phLevel}}</td>
+                <td>{{item.dissolvedOxygen}}</td>
+                <td>{{item.temperature}}</td>
+                <td>{{item.ammonia}}</td>
+                <td>{{item.nitrite}}</td>
+                <td>{{item.createdAt}}</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
 
 <div id="delete_approve" class="modal custom-modal fade" role="dialog">
   <div class="modal-dialog">
@@ -149,7 +282,6 @@
     </div>
   </div>
 </div>
-
 
 <div id="add_leave" class="modal custom-modal fade" role="dialog">
   <div class="modal-dialog">

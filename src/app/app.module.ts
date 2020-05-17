@@ -64,7 +64,7 @@ enableProdMode();
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: 'dashboard', component: DashboardComponent},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   {
     path: 'users', component: EmployeeMainComponent, children: [
       {path: '', redirectTo: 'all-users', pathMatch: 'full'},
