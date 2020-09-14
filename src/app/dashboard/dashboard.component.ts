@@ -138,8 +138,8 @@ export class DashboardComponent implements OnInit, AfterContentInit {
       ],
       data: [
         {label: 'Employees', value: 30},
-        {label: 'Users', value: 15},
-        {label: 'Ponds', value: 10},
+        {label: 'Users', value: 16},
+        {label: 'Ponds', value: 37},
         {label: 'Recordings', value: 43}
       ],
       resize: true,
