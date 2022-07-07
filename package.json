@@ -34,7 +34,7 @@
     "jquery": "^3.3.1",
     "line-awesome": "github:icons8/line-awesome",
     "material-icons": "^0.2.3",
-    "moment": "^2.23.0",
+    "moment": "^2.29.4",
     "mydatepicker": "^2.6.6",
     "ng2-charts": "^1.6.0",
     "ng4-eonasdan-datetimepicker-hirwan": "^1.0.0",
